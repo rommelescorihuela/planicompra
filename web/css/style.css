@@ -1,0 +1,25 @@
+.basecalculo-form{
+    position: sticky;
+    columns: 2;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-top: 5%;
+
+}
+
+
+.form-group{
+    margin-bottom: 0!important; 
+}
+.form-group2{
+    position: relative;
+    top: 12px;
+    left: 148px;
+}
+.form1{
+position: absolute;
+
+
+
+}

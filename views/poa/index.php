@@ -1,0 +1,96 @@
+<?php
+
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\grid\ActionColumn;
+use yii\grid\GridView;
+use kartik\select2\Select2;
+use app\models\Poa;
+
+
+
+/* @var $this yii\web\View */
+/* @var $searchModel app\models\PoaSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'POA';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="poa-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Crear Poa', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+        
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'id_tipo',
+                'filter' => Select2::widget([
+                    'model' =>  $searchModel,
+                    'attribute' => 'id_tipo',
+                    'data' => Poa::Lista_tipo(),
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'options' => [
+                        'placeholder' => 'Seleccione...'
+                    ],
+                    'pluginOptions' => ['allowClear' => true],
+                 ]),
+                 'value' =>'tipo.tipo',
+            ],
+
+
+            'descripcion:ntext',
+            'objetivo:ntext',
+            'nombre_apellido:ntext',
+    
+            [
+                'class' => ActionColumn::className(),
+                'template' => '{view}{update}</br>{pdf2}{pdf} {pdfaccion}',
+                'buttons' => [
+                    'pdf2' => function($url, $model){
+                        if($model->id_tipo == 2){
+                            return Html::a('<span class="material-icons">
+                            picture_as_pdf
+                            </span>', ['pdf2', 'idpoa' => $model->idpoa]);
+                        }
+                       
+                    },
+                    'pdf' => function($url, $model){
+                        if($model->id_tipo == 2){
+                        return Html::a('<span class="material-icons">
+                        picture_as_pdf
+                        </span>', ['pdf', 'idpoa' => $model->idpoa]);
+                    }
+                   
+                },
+                    'pdfcompleto' => function($url, $model){
+                        if($model->id_tipo == 1){
+                        return Html::a('<span class="material-icons">
+                        picture_as_pdf
+                        </span>', ['pdfcompleto', 'idpoa' => $model->idpoa]);
+                    }
+                   
+                },
+                    'pdfaccion' => function($url, $model){
+                        if($model->id_tipo == 1){
+                        return Html::a('<span class="material-icons">
+                        picture_as_pdf
+                        </span>', ['pdfaccion', 'idpoa' => $model->idpoa]);
+                    }
+                   
+                },
+                ]
+            ],
+        ],
+    ]); ?>
+
+
+</div>
