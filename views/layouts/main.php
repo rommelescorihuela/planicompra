@@ -35,7 +35,7 @@ AppAsset::register($this);
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
         ],
     ]);
-    if (Yii::$app->user->identity->id_perfil == 1) {
+   // if (Yii::$app->user->identity->id_perfil == 1) {
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav'],
             'items' => [
@@ -64,8 +64,8 @@ AppAsset::register($this);
                 )
             ],
         ]);
-    }else {
-        echo Nav::widget([
+    //}else {
+       /* echo Nav::widget([
             'options' => ['class' => 'navbar-nav'],
             'items' => [
                 ['label' => 'POA', 'url' => ['/poa/index']],
@@ -85,8 +85,8 @@ AppAsset::register($this);
                     . '</li>'
                 )
             ],
-        ]);
-    }
+        ]);*/
+   // }
     NavBar::end();
     ?>
 </header>

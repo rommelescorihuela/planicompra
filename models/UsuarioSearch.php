@@ -19,7 +19,7 @@ class UsuarioSearch extends Usuario
     public function rules()
     {
         return [
-            [['id_usuario', 'id_perfil', 'id_gerencia', 'cedula', 'estatu'], 'integer'],
+            [['id', 'id_perfil', 'id_gerencia', 'cedula', 'status'], 'integer'],
             [['username', 'password', 'nombre', 'apellido', 'cargo', 'correo', 'auth_key', 'usuario'], 'safe'],
         ];
     }
@@ -42,7 +42,7 @@ class UsuarioSearch extends Usuario
      */
     public function search($params)
     {
-        $query = Usuario::find()->orderBy(['id_usuario' => SORT_DESC]);
+        $query = Usuario::find()->orderBy(['id' => SORT_DESC]);
 
         // add conditions that should always apply here
 
@@ -65,11 +65,11 @@ class UsuarioSearch extends Usuario
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_usuario' => $this->id_usuario,
+            'id_usuario' => $this->id,
             'id_perfil' => $this->id_perfil,
             'id_gerencia' => $this->id_gerencia,
             'cedula' => $this->cedula,
-            'estatu' => $this->estatu,
+            'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['ilike', 'username', $this->username])

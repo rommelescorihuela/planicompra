@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="usuario-view">
 
     <p>
-        <?= Html::a('Editar', ['update', 'id' => $model->id_usuario], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -35,9 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
             //'password',
             'perfil.descripcion',
             [
-                'attribute' => 'estatu',
+                'attribute' => 'status',
                 'value' => function($model){
-                   if ($model->estatu == 1){
+                   if ($model->status == 1){
                     return 'ACTIVO';
                    } else{
                     return 'INACTIVO';

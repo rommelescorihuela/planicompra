@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "usuario".
  *
- * @property int $id_usuario
+ * @property int $id
  * @property string|null $username
  * @property string|null $password
  * @property int|null $id_perfil
@@ -20,13 +20,13 @@ use yii\helpers\ArrayHelper;
  * @property int|null $cedula
  * @property string|null $cargo
  * @property string|null $correo
- * @property int|null $estatu
+ * @property int|null $status
  * @property string|null $auth_key
  *
  * @property Gerencia $gerencia
  * @property Perfil $perfil
  */
-class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
+class Usuario extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -42,8 +42,8 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['id_perfil', 'id_gerencia', 'cedula', 'estatu'], 'default', 'value' => null],
-            [['id_perfil', 'id_gerencia', 'cedula', 'estatu'], 'integer'],
+            [['id_perfil', 'id_gerencia', 'cedula', 'status'], 'default', 'value' => null],
+            [['id_perfil', 'id_gerencia', 'cedula', 'status'], 'integer'],
             [['username', 'password', 'cargo', 'correo', 'auth_key'], 'string', 'max' => 100],
             [['nombre', 'apellido'], 'string', 'max' => 50],
             [['id_gerencia'], 'exist', 'skipOnError' => true, 'targetClass' => Gerencia::className(), 'targetAttribute' => ['id_gerencia' => 'id_gerencia']],
@@ -57,7 +57,7 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id_usuario' => 'Id Usuario',
+            'id' => 'Id',
             'username' => 'Usuario',
             'password' => 'Contraseña',
             'id_perfil' => 'Perfil',
@@ -67,7 +67,7 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
             'cedula' => 'Cedula',
             'cargo' => 'Cargo',
             'correo' => 'Correo',
-            'estatu' => 'Estatus',
+            'status' => 'Estatus',
             'auth_key' => 'Auth Key',
         ];
     }
@@ -91,82 +91,6 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Perfil::className(), ['id_perfil' => 'id_perfil']);
     }
-
-    /*
-      * Generate password hash
-      */
-      public function setPassword($password)
-      {
-          $this->password =
- Yii::$app->security->generatePasswordHash($password);
-      }
- 
-      /*
-       * Generate authentication key
-       */
-      public function generateAuthKey()
-      {
-          $this->auth_key = Yii::$app->security->generateRandomString();
-      }
- 
-      /*
-       * Finds an identity by the given ID
-       */
-      public static function findIdentity($id)
-      {
-          return static::findOne($id);
-      }
- 
-      /*
-       * Finds an identity by the given token
-       */
-      public static function findIdentityByAccessToken($token, $type = null)
-      {
-          throw new NotSupportedException();
-      }
- 
-      /*
-       * Returns an ID that can uniquely identify a user identity
-       */
-      public function getId()
-      {
-          return $this->id_usuario;
-      }
- 
-      /*
-       * Returns a key that can be used to check the validity of a given
- identity ID
-       */
-      public function getAuthKey()
-      {
-          return $this->auth_key;
-      }
- 
-      /*
-       * Validates the given auth key
-       */
-      public function validateAuthKey($authKey)
-      {
-          return $this->auth_key === $authKey;
-      }
- 
-      /*
-       * Finds user by username
-       */
-      public static function findByUsername($username)
-      {
-          return static::findOne(['username' => $username, 'estatu' =>
- 1]);
-      }
- 
-      /*
-       * Validates password
-       */
-      public function validatePassword($password)
-      {
-          return Yii::$app->security->validatePassword($password,
-    $this->password);
-      }
     public static function Lista_gerenci()
     {
         $gerencia=Gerencia::find()->orderBy('gerencia')->all();
@@ -179,4 +103,41 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
         $listaperfil=ArrayHelper::map($perfil, 'id_perfil', 'descripcion');
         return $listaperfil;
     }
+
+    //Este lo pide pero lo dejamos como null por que no lo usamos por el momento
+       public function getAuthKey() {
+           return null;
+          //return $this->auth_key;
+       }    
+       
+       // interface
+       public function validateAuthKey($authKey) {
+           return $this->getAuthKey() == $authKey;
+       }
+       
+       // interface
+       public static function findIdentityByAccessToken($token, $type = null) {
+           throw new \yii\base\NotSupportedException("'findIdentityByAccessToken' is not implemented");
+       }
+       
+       /* Identity Interface */
+       public function getId(){
+           return $this->id;
+       }
+           
+       public static function findIdentity($id) {
+           return static::findOne(['id' => $id]);
+       }
+       
+      // Utilizamos el mismo nombre de método que definimos como el nombre de usuario
+       public static function findByUserName($username) {
+           return static::findOne(['username' => $username]);
+       }
+       
+       public function validatePassword($password) {
+           return Yii::$app->security->validatePassword($password, $this->password);
+       }
+
+       
+    
 }

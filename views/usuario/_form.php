@@ -17,13 +17,13 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'id_perfil')->widget(Select2::classname(), [
+    <?php /*echo $form->field($model, 'id_perfil')->widget(Select2::classname(), [
     'data' => $lista_perfil,
     'options' => ['placeholder' => 'Seleccionar...'],
     'pluginOptions' => [
         'allowClear' => true
     ],
-    ]) ?> 
+    ]) */?> 
 
     <?= $form->field($model, 'id_gerencia')->widget(Select2::classname(), [
     'data' => $listagerenci,
@@ -43,7 +43,7 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'correo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'estatu')->widget(Select2::classname(), [
+    <?= $form->field($model, 'status')->widget(Select2::classname(), [
     'data' => [1 => 'ACTIVO', 2 => 'INACTIVO'],
     'options' => ['placeholder' => 'Seleccionar...'],
     'pluginOptions' => [

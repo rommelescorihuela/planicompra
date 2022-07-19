@@ -57,7 +57,23 @@ $config = [
             'rules' => [
             ],
         ],
-        
+
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',//'yii\rbac\PhpManager' or use 'yii\rbac\DbManager'
+        ]
+    ],
+
+    'modules' => [
+        'admin' => [
+            'class' => 'mdm\admin\Module',
+        ]
+    ],
+
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+            'site/login*',
+        ]
     ],
 
     'params' => $params,

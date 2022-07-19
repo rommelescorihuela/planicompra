@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Usuario;
 use app\models\UsuarioSearch;
 use app\models\Gerencia;
@@ -52,7 +53,7 @@ class UsuarioController extends Controller
 
     /**
      * Displays a single Usuario model.
-     * @param int $id_usuario Id Usuario
+     * @param int $id Id 
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -70,13 +71,38 @@ class UsuarioController extends Controller
      */
     public function actionCreate()
     {
+
         $model = new Usuario();
+        $gerencia=Gerencia::find()->orderBy('gerencia')->all();
+        $listagerenci=ArrayHelper::map($gerencia, 'id_gerencia', 'gerencia');
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $hash =  Yii::$app->security->generatePasswordHash($model->password);
+            // echo "hash:" . $hash;
+            $model->password = $hash;                                               
+            if ($model->save()) {  
+                $auth = \Yii::$app->authManager;
+                $authorRole = $auth->getRole('administrador');
+                $auth->assign($authorRole, $model->id);
+                //echo "<br>Se ha creado el permiso";
+            } else {
+                die('Error al guardar');
+            }
+
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('create', [
+                    'model' => $model,
+                    'listagerenci' =>$listagerenci
+        ]);
+    
+        /*$model = new Usuario();
 
         $perfil = Perfil::find()->all();
         $lista_perfil = ArrayHelper::map($perfil, 'id_perfil', 'descripcion');
 
-        $gerencia=Gerencia::find()->orderBy('gerencia')->all();
-        $listagerenci=ArrayHelper::map($gerencia, 'id_gerencia', 'gerencia');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
@@ -98,14 +124,14 @@ class UsuarioController extends Controller
         return $this->render('create', [
             'model' => $model,
             'lista_perfil' => $lista_perfil,
-            'listagerenci' =>$listagerenci
-        ]);
+           
+        ]);*/
     }
 
     /**
      * Updates an existing Usuario model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id_usuario Id Usuario
+     * @param int $id Id 
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -121,16 +147,18 @@ class UsuarioController extends Controller
 
         if ($this->request->isPost && $model->load($this->request->post())) {
             //Actualizar password hash solo si es diferente a la registrada por primera vez
-            $usuario = Usuario::find()->where(['id_usuario' =>$id])->one();
+            $usuario = Usuario::find()->where(['id' =>$id])->one();
             if ($usuario->password != $model->password) {
-                $model->setPassword($model->password);
+                $hash =  Yii::$app->security->generatePasswordHash($model->password);
+                // echo "hash:" . $hash;
+                $model->password = $hash; 
             }
 
             //Generar authentication key
-            $model->generateAuthKey();
+            //$model->generateAuthKey();
 
             if ($model->save()){
-                return $this->redirect(['view', 'id' => $model->id_usuario]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
 
@@ -144,13 +172,13 @@ class UsuarioController extends Controller
     /**
      * Deletes an existing Usuario model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id_usuario Id Usuario
+     * @param int $id Id 
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id_usuario)
+    public function actionDelete($id)
     {
-        $this->findModel($id_usuario)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -158,13 +186,13 @@ class UsuarioController extends Controller
     /**
      * Finds the Usuario model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id_usuario Id Usuario
+     * @param int $id Id 
      * @return Usuario the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id_usuario)
+    protected function findModel($id)
     {
-        if (($model = Usuario::findOne(['id_usuario' => $id_usuario])) !== null) {
+        if (($model = Usuario::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

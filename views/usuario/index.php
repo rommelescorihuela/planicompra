@@ -75,9 +75,9 @@ $this->params['breadcrumbs'][] = $this->title;
                  'value' =>'perfil.descripcion',
             ],
             [
-                'attribute' => 'estatu',
+                'attribute' => 'status',
                 'value' => function($model){
-                   if ($model->estatu == 1){
+                   if ($model->status == 1){
                     return 'ACTIVO';
                    } else{
                     return 'INACTIVO';
