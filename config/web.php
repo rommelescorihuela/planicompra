@@ -73,6 +73,7 @@ $config = [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             'site/login*',
+            'site/logout*',
         ]
     ],
 
