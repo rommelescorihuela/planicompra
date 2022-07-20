@@ -98,8 +98,8 @@ class BasecalculoController extends Controller
         $model = new BaseCalculo();
 
         $model->id_gerencia = Yii::$app->user->identity->id_gerencia;
-        $model->id_usuario = Yii::$app->user->identity->id_usuario;
-        $model->estatus = Yii::$app->user->identity->estatu;
+        $model->id_usuario = Yii::$app->user->identity->id;
+        $model->estatus = Yii::$app->user->identity->status;
 
 
         if (Yii::$app->user->identity->id_perfil == 1)  {
@@ -208,7 +208,8 @@ class BasecalculoController extends Controller
                     }
                 }
                 // Shows how you can preselect a value
-                return ['output' => $out, 'selected' => $selected];
+                //return ['output' => $out, 'selected' => $selected];
+                return ['output' => $out, 'selected' => ''];
             }
         }else{
             $list = Poa::find()->Where(['id_tipo' => $id])->asArray()->all();
@@ -222,7 +223,8 @@ class BasecalculoController extends Controller
                     }
                 }
                 // Shows how you can preselect a value
-                return ['output' => $out, 'selected' => $selected];
+                //return ['output' => $out, 'selected' => $selected];
+                return ['output' => $out, 'selected' => ''];
             }
         }
         return ['output' => '', 'selected' => ''];
@@ -244,7 +246,7 @@ class BasecalculoController extends Controller
                     }
                 }
                 // Shows how you can preselect a value
-                return ['output' => $out, 'selected' => $selected];
+                return ['output' => $out, 'selected' => ''];
             }
         }
         return ['output' => '', 'selected' => ''];
@@ -266,7 +268,7 @@ class BasecalculoController extends Controller
                     }
                 }
                 // Shows how you can preselect a value
-                return ['output' => $out, 'selected' => $selected];
+                return ['output' => $out, 'selected' => ''];
             }
         }else{
             $list = Actividades::find()->Where(['idaccionespecifica' => $id])->asArray()->all();
@@ -280,7 +282,7 @@ class BasecalculoController extends Controller
                     }
                 }
                 // Shows how you can preselect a value
-                return ['output' => $out, 'selected' => $selected];
+                return ['output' => $out, 'selected' => ''];
             } 
         }
     }

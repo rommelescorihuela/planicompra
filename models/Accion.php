@@ -13,6 +13,23 @@ use yii\helpers\ArrayHelper;
  * @property int|null $idpoa
  * @property int|null $idgerencia
  * @property int|null $id_tipo
+ * @property int|null $poderacion 
+ * @property string|null $fechainicio 
+ * @property string|null $fechafin 
+ * @property string|null $servicio 
+ * @property string|null $unidadmedida 
+ * @property int|null $enero 
+ * @property int|null $febrero 
+ * @property int|null $marzo 
+ * @property int|null $abril 
+ * @property int|null $mayo 
+ * @property int|null $junio 
+ * @property int|null $julio 
+ * @property int|null $agosto 
+ * @property int|null $septiembre 
+ * @property int|null $octubre 
+ * @property int|null $noviembre 
+ * @property int|null $diciembre 
  *
  * @property Actividades[] $actividades
  * @property Basecalculo[] $basecalculos
@@ -23,7 +40,7 @@ use yii\helpers\ArrayHelper;
 
 class Accion extends \yii\db\ActiveRecord
 {   
-
+    public $distribucion;
     /**
      * {@inheritdoc}
      */
@@ -38,9 +55,10 @@ class Accion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descripcion'], 'string'],
-            [['idpoa', 'idgerencia', 'id_tipo'], 'default', 'value' => null],
-            [['idpoa', 'idgerencia', 'id_tipo'], 'integer'],
+            [['descripcion', 'servicio', 'unidadmedida'], 'string'],
+            [['idpoa', 'idgerencia', 'id_tipo', 'poderacion', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'], 'default', 'value' => null],
+            [['idpoa', 'idgerencia', 'id_tipo', 'poderacion', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'], 'integer'],
+            [['fechainicio', 'fechafin'], 'safe'],
             [['idgerencia'], 'exist', 'skipOnError' => true, 'targetClass' => Gerencia::className(), 'targetAttribute' => ['idgerencia' => 'id_gerencia']],
             [['idpoa'], 'exist', 'skipOnError' => true, 'targetClass' => Poa::className(), 'targetAttribute' => ['idpoa' => 'idpoa']],
             [['id_tipo'], 'exist', 'skipOnError' => true, 'targetClass' => Tipo::className(), 'targetAttribute' => ['id_tipo' => 'id_tipo']],
@@ -53,11 +71,28 @@ class Accion extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_tipo'=>'Categoria',
-            'id_accion' => 'Accion',
-            'descripcion' => 'Acción Especifica',
-            'idpoa' => 'Proyecto o Acción Centralizada ',
-            'idgerencia' => 'Dependencia',
+            'id_accion' => 'Id Accion',
+            'descripcion' => 'Descripcion',
+            'idpoa' => 'Idpoa',
+            'idgerencia' => 'Idgerencia',
+            'id_tipo' => 'Id Tipo',
+            'poderacion' => 'Poderacion',
+            'fechainicio' => 'Fechainicio',
+            'fechafin' => 'Fechafin',
+            'servicio' => 'Servicio',
+            'unidadmedida' => 'Unidadmedida',
+            'enero' => 'Enero',
+            'febrero' => 'Febrero',
+            'marzo' => 'Marzo',
+            'abril' => 'Abril',
+            'mayo' => 'Mayo',
+            'junio' => 'Junio',
+            'julio' => 'Julio',
+            'agosto' => 'Agosto',
+            'septiembre' => 'Septiembre',
+            'octubre' => 'Octubre',
+            'noviembre' => 'Noviembre',
+            'diciembre' => 'Diciembre',
 
         ];
     }
@@ -71,6 +106,17 @@ class Accion extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Actividades::className(), ['idaccionespecifica' => 'id_accion']);
     }
+
+    /** 
+    * Gets query for [[Basecalculos]]. 
+    * 
+    * @return \yii\db\ActiveQuery 
+    */ 
+    public function getBasecalculos() 
+    { 
+       return $this->hasMany(Basecalculo::className(), ['id_accion' => 'id_accion']); 
+    }
+    /**
 
     /**
      * Gets query for [[Idgerencia0]].

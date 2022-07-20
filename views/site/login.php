@@ -1,45 +1,44 @@
 <?php
-
-/** @var yii\web\View $this */
-/** @var yii\bootstrap4\ActiveForm $form */
-/** @var app\models\LoginForm $model */
-
-use yii\bootstrap4\ActiveForm;
-use yii\bootstrap4\Html;
-
-$this->title = 'Iniciar Sección';
-$this->params['breadcrumbs'][] = $this->title;
+use yii\helpers\Html;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card">
+    <div class="card-body login-card-body">
+        <p class="login-box-msg">Introduzca sus datos para iniciar sesion</p>
 
+        <?php $form = \yii\bootstrap4\ActiveForm::begin(['id' => 'login-form']) ?>
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'layout' => 'horizontal',
-        'fieldConfig' => [
-            'template' => "{label}\n{input}\n{error}",
-            'labelOptions' => ['class' => 'col-lg-1 col-form-label mr-lg-3'],
-            'inputOptions' => ['class' => 'col-lg-3 form-control'],
-            'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
-        ],
-    ]); ?>
+        <?= $form->field($model,'username', [
+            'options' => ['class' => 'form-group has-feedback'],
+            'inputTemplate' => '{input}<div class="input-group-append"><div class="input-group-text"><span class="fas fa-envelope"></span></div></div>',
+            'template' => '{beginWrapper}{input}{error}{endWrapper}',
+            'wrapperOptions' => ['class' => 'input-group mb-3']
+        ])
+            ->label(false)
+            ->textInput(['placeholder' => $model->getAttributeLabel('Usuario')]) ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'password', [
+            'options' => ['class' => 'form-group has-feedback'],
+            'inputTemplate' => '{input}<div class="input-group-append"><div class="input-group-text"><span class="fas fa-lock"></span></div></div>',
+            'template' => '{beginWrapper}{input}{error}{endWrapper}',
+            'wrapperOptions' => ['class' => 'input-group mb-3']
+        ])
+            ->label(false)
+            ->passwordInput(['placeholder' => $model->getAttributeLabel('Clave')]) ?>
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
-
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"offset-lg-1 col-lg-3 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
-
-        <div class="form-group">
-            <div class="offset-lg-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+        <div class="row">
+            <div class="col-12">
+                <?= Html::submitButton('Iniciar Sesion', ['class' => 'btn btn-primary btn-block']) ?>
             </div>
         </div>
 
-    <?php ActiveForm::end(); ?>
+        <?php \yii\bootstrap4\ActiveForm::end(); ?>
 
-
+        <div class="pt-3">
+            <div class="col-md-12"><?= Html::Button('Registrate', ['class' => 'btn btn-success btn-block']) ?></div>
+        </div>
+        <div class="p-1">
+            <div class="col-md-12"><?= Html::Button('Recordar Clave', ['class' => 'btn btn-warning btn-block']) ?></div>
+        </div>
+    </div>
+    <!-- /.login-card-body -->
 </div>
