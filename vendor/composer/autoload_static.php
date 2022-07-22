@@ -40,6 +40,10 @@ class ComposerStaticInit811d43689cceac41fa0586a1dcb4caed
             'yii\\' => 4,
             'yii2tech\\html2pdf\\' => 18,
         ),
+        'w' => 
+        array (
+            'wbraganca\\dynamicform\\' => 22,
+        ),
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
@@ -184,6 +188,10 @@ class ComposerStaticInit811d43689cceac41fa0586a1dcb4caed
         'yii2tech\\html2pdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/yii2tech/html2pdf/src',
+        ),
+        'wbraganca\\dynamicform\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wbraganca/yii2-dynamicform',
         ),
         'phpDocumentor\\Reflection\\' => 
         array (

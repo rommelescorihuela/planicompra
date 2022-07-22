@@ -14,6 +14,10 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'formatter' => [
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '2yZQDn4A_rF5BVS3QllX1zXnehxkYxzv',

@@ -9,12 +9,15 @@ use yii\helpers\Url;
 \hail812\adminlte3\assets\FontAwesomeAsset::register($this);
 \hail812\adminlte3\assets\AdminLteAsset::register($this);
 $this->registerCssFile('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback');
+$this->registerCssFile("@web/../vendor/almasaeed2010/adminlte/plugins/sweetalert2/sweetalert2.css");
 
 $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
 
 $publishedRes = Yii::$app->assetManager->publish('@vendor/hail812/yii2-adminlte3/src/web/js');
 $this->registerJsFile($publishedRes[1].'/control_sidebar.js', ['depends' => '\hail812\adminlte3\assets\AdminLteAsset']);
 $this->registerJsFile('@web/js/funciones.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+$this->registerJsFile("@web/../vendor/almasaeed2010/adminlte/plugins/sweetalert2/sweetalert2.js")
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

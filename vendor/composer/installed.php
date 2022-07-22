@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '1b0d8feeaab92c8faed771bad105f1482c4642ef',
+        'reference' => '1d638152b9ebcd2b76ace051f69543b177aa058c',
         'name' => 'yiisoft/yii2-app-basic',
         'dev' => true,
     ),
@@ -872,7 +872,7 @@
             'install_path' => __DIR__ . '/../symfony/css-selector',
             'aliases' => array(),
             'reference' => 'b0a190285cd95cb019237851205b8140ef6e368e',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/deprecation-contracts' => array(
             'pretty_version' => 'v2.5.2',
@@ -890,7 +890,7 @@
             'install_path' => __DIR__ . '/../symfony/dom-crawler',
             'aliases' => array(),
             'reference' => 'be5a04618e5d44e71d013f177df80d3ec4b192a0',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/event-dispatcher' => array(
             'pretty_version' => 'v5.4.9',
@@ -932,7 +932,7 @@
             'install_path' => __DIR__ . '/../symfony/polyfill-ctype',
             'aliases' => array(),
             'reference' => '6fd1b9a79f6e3cf65f9e679b23af304cd9e010d4',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/polyfill-iconv' => array(
             'pretty_version' => 'v1.26.0',
@@ -1004,7 +1004,7 @@
             'install_path' => __DIR__ . '/../symfony/polyfill-php80',
             'aliases' => array(),
             'reference' => 'cfa0ae98841b9e461207c13ab093d76b0fa7bace',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/service-contracts' => array(
             'pretty_version' => 'v1.1.2',
@@ -1051,6 +1051,15 @@
             'reference' => '34a41e998c2183e22995f158c581e7b5e755ab9e',
             'dev_requirement' => true,
         ),
+        'wbraganca/yii2-dynamicform' => array(
+            'pretty_version' => 'v2.0.2',
+            'version' => '2.0.2.0',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../wbraganca/yii2-dynamicform',
+            'aliases' => array(),
+            'reference' => '9b761d708aa6c06c1219e1c2ed321f7cb205b09f',
+            'dev_requirement' => false,
+        ),
         'webmozart/assert' => array(
             'pretty_version' => '1.11.0',
             'version' => '1.11.0.0',
@@ -1084,7 +1093,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '1b0d8feeaab92c8faed771bad105f1482c4642ef',
+            'reference' => '1d638152b9ebcd2b76ace051f69543b177aa058c',
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-bootstrap' => array(

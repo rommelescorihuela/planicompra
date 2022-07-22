@@ -25,7 +25,7 @@ use kartik\select2\Select2;
                 </div>
                 <div class="card-body" >
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <?= $form->field($model, 'id_tipo')->widget(Select2::classname(), [
                             'data' => $lista_tipo,
                             'options' => ['id'=>'id_tipo', 'placeholder' => 'Seleccionar...'],
@@ -34,7 +34,7 @@ use kartik\select2\Select2;
                             ],
                             ]) ?>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <?= $form->field($model, 'id_poa')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
                             'data' => [2 => ''],
@@ -47,7 +47,7 @@ use kartik\select2\Select2;
                                 ]
                             ]) ?>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <?= $form->field($model, 'id_accion')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
                             'data' => [2 => ''],
@@ -60,7 +60,7 @@ use kartik\select2\Select2;
                                 ]
                             ]) ?>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <?= $form->field($model, 'id_actividad')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
                             'data' => [2 => ''],
@@ -73,30 +73,7 @@ use kartik\select2\Select2;
                                 ]
                             ]) ?>
                         </div>
-                    </div>
-                    <div class="row">
-                            <div class="col-md-3">
-                                <?= $form->field($model, 'fecha_i')->widget(DatePicker::classname(), [
-                                'options' => ['placeholder' => 'Fecha de Inicio...'],
-                                'pluginOptions' => [
-                                    'autoclose' => true,
-                                ]
-                                ]);
-                                ?>
-                            </div>
-                            <div class="col-md-3">
-                                <?= $form->field($model, 'fecha_f')->widget(DatePicker::classname(), [
-                                'options' => ['placeholder' => 'Fecha de Fin...'],
-                                'pluginOptions' => [
-                                    'autoclose' => true,
-                                ]
-                                ]);
-                                ?>
-                            </div>
-                            <div class="col-md-3">
-                                <?= $form->field($model, 'ponderacion')->textInput() ?>
-                            </div>
-                            <div class="col-md-3">
+                        <div class="col-md-3">
                              <?= $form->field($model, 'id_producto')->widget(Select2::classname(), [
                             'data' => $lista_producto,
                             'options' => [
@@ -113,7 +90,7 @@ use kartik\select2\Select2;
                             'pluginOptions' => [
                                 'allowClear' => true
                             ],
-                            ]) ?>
+                            ])->label("Producto/Bien/Servicio") ?>
                         </div>
                     </div>
                     <div id="tabla-datos" style="display: none;">
@@ -180,18 +157,18 @@ use kartik\select2\Select2;
                             <?= $form->field($model, 'costo')->textInput(['readonly' => true]) ?>
                         </div>
                         <div class="col-md-3">
-                            <?= $form->field($model, 'iva')->textInput(['readonly' => true]) ?>
+                            <?= $form->field($model, 'iva')->textInput(['readonly' => true])->label("Iva(%)") ?>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <?= $form->field($model, 'monto_total')->textInput(['readonly' => true]) ?>
+                            <?= $form->field($model, 'monto_total')->textInput(['readonly' => true])->label("Subtotal") ?>
                         </div>
                         <div class="col-md-4">
-                            <?= $form->field($model, 'iva_monto')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'iva_monto')->textInput(['readonly'=> true])->label("Iva") ?>
                         </div>
                         <div class="col-md-4">
-                            <?= $form->field($model, 'total_iva')->textInput(['readonly'=> true]) ?>
+                            <?= $form->field($model, 'total_iva')->textInput(['readonly'=> true])->label("Total") ?>
                         </div>
                     </div>
                     <div class="row">

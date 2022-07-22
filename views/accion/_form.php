@@ -13,7 +13,7 @@ use kartik\select2\Select2;
 /* @var $model app\models\Accion */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(["id" =>"formulario-ae"]); ?>
 <div class="accion-form">
     <div class="row">
         <div class="col-md-12">
@@ -24,7 +24,7 @@ use kartik\select2\Select2;
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <?= $form->field($model, 'id_tipo')->dropDownList($lista_tipo, ['id'=>'id_tipo', 'prompt' => 'Seleccionar']); ?>
+                            <?= $form->field($model, 'id_tipo')->dropDownList($lista_tipo, ['id'=>'id_tipo', 'prompt' => 'Seleccionar'])->label('Categoria'); ?>
                         </div>
                         <div class="col-md-3">
                             <?= $form->field($model, 'idpoa')->widget(DepDrop::classname(), [
@@ -37,7 +37,7 @@ use kartik\select2\Select2;
                                 'url' => Url::to(['poas']),
                                 'params' => ['input-type-1', 'input-type-2']
                                 ]
-                            ]) ?>
+                            ])->label('Poa') ?>
                         </div>
                         <div class="col-md-3">
                             <?= $form->field($model, 'idgerencia')->widget(Select2::classname(), [
@@ -46,10 +46,10 @@ use kartik\select2\Select2;
                                 'pluginOptions' => [
                                 'allowClear' => true
                                 ],
-                            ]) ?>
+                            ])->label('Unidad ejecutora') ?>
                         </div>
                         <div class="col-md-3">
-                            <?= $form->field($model, 'servicio')->textInput() ?>
+                            <?= $form->field($model, 'servicio')->textInput()->label('Bien o Servicio') ?>
                         </div>
                     </div>
                     <div class="row">
@@ -84,28 +84,35 @@ use kartik\select2\Select2;
                     <div class="row">
                         <div class="col-md-4"></div>
                         <div class="col-md-4">
-                            <h5><b>Programacion mensual fisica de la meta</b></h5>
+                            <h5><b>Programacion fisica de la meta</b></h5>
                         </div>
                         <div class="col-md-4"></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"><?= $form->field($model, 'enero')->textInput() ?></div>
-                        <div class="col-md-2"><?= $form->field($model, 'febrero')->textInput() ?></div>
-                        <div class="col-md-2"><?= $form->field($model, 'marzo')->textInput() ?></div>
-                        <div class="col-md-2"><?= $form->field($model, 'abril')->textInput() ?></div>
-                        <div class="col-md-2"><?= $form->field($model, 'mayo')->textInput() ?></div>
-                        <div class="col-md-2"><?= $form->field($model, 'junio')->textInput() ?></div>
+                        <div class="col-md-2">
+                            <?= $form->field($model, 'cantidad')->textInput()->label('Cantidad Total de la Meta') ?>
+                        </div>
                     </div>
-                    <div class="row">
-                         <div class="col-md-2"><?= $form->field($model, 'julio')->textInput() ?></div>
-                         <div class="col-md-2"><?= $form->field($model, 'agosto')->textInput() ?></div>
-                         <div class="col-md-2"><?= $form->field($model, 'septiembre')->textInput() ?></div>
-                         <div class="col-md-2"><?= $form->field($model, 'octubre')->textInput() ?></div>
-                         <div class="col-md-2"><?= $form->field($model, 'noviembre')->textInput() ?></div>
-                         <div class="col-md-2"><?= $form->field($model, 'diciembre')->textInput() ?></div>
-                    </div>  
-                    <div class="form-group">
-                        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+                    <div id="meta" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-2"><?= $form->field($model, 'enero')->textInput() ?></div>
+                            <div class="col-md-2"><?= $form->field($model, 'febrero')->textInput() ?></div>
+                            <div class="col-md-2"><?= $form->field($model, 'marzo')->textInput() ?></div>
+                            <div class="col-md-2"><?= $form->field($model, 'abril')->textInput() ?></div>
+                            <div class="col-md-2"><?= $form->field($model, 'mayo')->textInput() ?></div>
+                            <div class="col-md-2"><?= $form->field($model, 'junio')->textInput() ?></div>
+                        </div>
+                        <div class="row">
+                             <div class="col-md-2"><?= $form->field($model, 'julio')->textInput() ?></div>
+                             <div class="col-md-2"><?= $form->field($model, 'agosto')->textInput() ?></div>
+                             <div class="col-md-2"><?= $form->field($model, 'septiembre')->textInput() ?></div>
+                             <div class="col-md-2"><?= $form->field($model, 'octubre')->textInput() ?></div>
+                             <div class="col-md-2"><?= $form->field($model, 'noviembre')->textInput() ?></div>
+                             <div class="col-md-2"><?= $form->field($model, 'diciembre')->textInput() ?></div>
+                        </div>  
+                        <div class="form-group">
+                            <?= Html::Button('Guardar', ['class' => 'btn btn-success','id'=>'guardar']) ?>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -79,7 +79,19 @@ class AccionController extends Controller
         $model = new Accion();
 
         $model->idgerencia = Yii::$app->user->identity->id_gerencia;
-
+        $model->enero = 0;
+        $model->febrero = 0;
+        $model->marzo = 0;
+        $model->abril = 0;
+        $model->mayo = 0;
+        $model->junio = 0;
+        $model->julio = 0;
+        $model->agosto = 0;
+        $model->septiembre = 0;
+        $model->octubre = 0;
+        $model->noviembre = 0;
+        $model->diciembre = 0;
+        
         if (Yii::$app->user->identity->id_perfil == 1)  {
             $tipo = Tipo::find()->orderBy('tipo')->all();
             $lista_tipo = ArrayHelper::map($tipo, 'id_tipo', 'tipo');

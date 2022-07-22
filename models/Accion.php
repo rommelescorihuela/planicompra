@@ -41,6 +41,7 @@ use yii\helpers\ArrayHelper;
 class Accion extends \yii\db\ActiveRecord
 {   
     public $distribucion;
+    public $cantidad;
     /**
      * {@inheritdoc}
      */
