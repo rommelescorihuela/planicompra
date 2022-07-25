@@ -3,10 +3,13 @@
 namespace app\controllers;
 
 use app\models\Actividades;
+use app\models\UnidadMedida;
 use app\models\ActividadesSearch;
+use app\models\UnidadMedidaSearch;
 use app\models\Accion;
 use app\models\Poa;
 use app\models\Tipo;
+use app\models\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -77,6 +80,10 @@ class ActividadesController extends Controller
     public function actionCreate()
     {
         $model = new Actividades();
+        $modelsUnidadmedida = [new Unidadmedida()];
+
+
+
 
         $model->id_gerencia = Yii::$app->user->identity->id_gerencia;
 
@@ -89,8 +96,35 @@ class ActividadesController extends Controller
         }
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->idactividad]);
+            if ($model->load($this->request->post())) {
+                
+                $modelsUnidadmedida = Model::createMultiple(Unidadmedida::classname());
+                Model::loadMultiple($modelsUnidadmedida, Yii::$app->request->post());
+
+                $valid = $model->validate();
+                $valid = Model::validateMultiple($modelsUnidadmedida) && $valid;
+
+                if ($valid) {
+                    $transaction = \Yii::$app->db->beginTransaction();
+                    try {
+                        if ($flag = $model->save(false)) {
+                            foreach ($modelsUnidadmedida as $modelUnidadmedida) {
+                                $modelUnidadmedida->id_actividad = $model->idactividad;
+                                if (! ($flag = $modelUnidadmedida->save(false))) {
+                                    $transaction->rollBack();
+                                    break;
+                                }
+                            }
+                        }
+                        if ($flag) {
+                            $transaction->commit();
+                            //return $this->redirect(['view', 'id' => $model->id]);
+                            return $this->redirect(['view', 'id' => $model->idactividad]);
+                        }
+                    } catch (Exception $e) {
+                        $transaction->rollBack();
+                    }
+                }
             }
         } else {
             $model->loadDefaultValues();
@@ -99,6 +133,7 @@ class ActividadesController extends Controller
         return $this->render('create', [
             'model' => $model,
             'lista_tipo' => $lista_tipo,
+            'modelsUnidadmedida' => (empty($modelsUnidadmedida)) ? [new Unidadmedida] : $modelsUnidadmedida
 
         ]);
     }
@@ -113,6 +148,7 @@ class ActividadesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelsUnidadmedida = $model->unidadMedidas;
 
         if (Yii::$app->user->identity->id_perfil == 1)  {
             $tipo = Tipo::find()->orderBy('tipo')->all();
@@ -122,13 +158,46 @@ class ActividadesController extends Controller
             $lista_tipo = ArrayHelper::map($tipo, 'id_tipo', 'tipo');
         }
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idactividad]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+
+            $oldIDs = ArrayHelper::map($modelsUnidadmedida, 'id', 'id');
+            $modelsUnidadmedida = Model::createMultiple(Unidadmedida::classname(), $modelsUnidadmedida);
+            Model::loadMultiple($modelsUnidadmedida, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsUnidadmedida, 'id', 'id')));
+
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsUnidadmedida) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        if (! empty($deletedIDs)) {
+                            Unidadmedida::deleteAll(['id' => $deletedIDs]);
+                        }
+                        foreach ($modelsUnidadmedida as $modelUnidadmedida) {
+                            $modelUnidadmedida->id_actividad = $model->idactividad;
+                            if (! ($flag = $modelUnidadmedida->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->idactividad]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+    
         }
 
         return $this->render('update', [
             'model' => $model,
             'lista_tipo' => $lista_tipo,
+             'modelsUnidadmedida' => (empty($modelsUnidadmedida)) ? [new Unidadmedida] : $modelsUnidadmedida
         ]);
     }
 

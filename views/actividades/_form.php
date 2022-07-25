@@ -1,30 +1,26 @@
-<?php
 
+<?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
-
-
-/* @var $this yii\web\View */
-/* @var $model app\models\Actividades */
-/* @var $form yii\widgets\ActiveForm */
+use wbraganca\dynamicform\DynamicFormWidget;
 ?>
 
-<?php $form = ActiveForm::begin(); ?>
-<div class="actividades-form">
+<div class="customer-form">
     <div class="row">
         <div class="col-md-12">
-            <div class="card card-primary">
+             <div class="card card-primary">
                 <div class="card-header">
                     <h3><?= Html::encode($this->title) ?></h3>
                 </div>
                 <div class="card-body">
+                    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <?= $form->field($model, 'id_tipo')->dropDownList($lista_tipo, ['id'=>'id_tipo', 'prompt' => 'Seleccionar']); ?>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <?= $form->field($model, 'id_poa')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
                             'data' => [2 => ''],
@@ -37,7 +33,7 @@ use yii\helpers\Url;
                                 ]
                             ]) ?>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <?= $form->field($model, 'idaccionespecifica')->widget(DepDrop::classname(), [
                                 'type' => DepDrop::TYPE_SELECT2,
                                 'data' => [2 => ''],
@@ -50,56 +46,125 @@ use yii\helpers\Url;
                                     ]
                                 ]) ?>
                         </div>                        
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <?= $form->field($model, 'descripcion')->textinput(['rows' => 6]) ?>
                         </div>
-                        <div class="col-md-4">
-                            <?= $form->field($model, 'unidadmedida')->textinput(['rows' => 6]) ?>
-                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4">
-                            <h5><b>Programacion mensual fisica de la meta</b></h5>
-                        </div>
-                        <div class="col-md-4"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2"><?= $form->field($model, 'enero')->textInput() ?></div>
-                        <div class="col-md-2"><?= $form->field($model, 'febrero')->textInput() ?></div>
-                        <div class="col-md-2"><?= $form->field($model, 'marzo')->textInput() ?></div>
-                        <div class="col-md-2"><?= $form->field($model, 'abril')->textInput() ?></div>
-                        <div class="col-md-2"><?= $form->field($model, 'mayo')->textInput() ?></div>
-                        <div class="col-md-2"><?= $form->field($model, 'junio')->textInput() ?></div>
-                    </div>
-                    <div class="row">
-                         <div class="col-md-2"><?= $form->field($model, 'julio')->textInput() ?></div>
-                         <div class="col-md-2"><?= $form->field($model, 'agosto')->textInput() ?></div>
-                         <div class="col-md-2"><?= $form->field($model, 'septiembre')->textInput() ?></div>
-                         <div class="col-md-2"><?= $form->field($model, 'octubre')->textInput() ?></div>
-                         <div class="col-md-2"><?= $form->field($model, 'noviembre')->textInput() ?></div>
-                         <div class="col-md-2"><?= $form->field($model, 'diciembre')->textInput() ?></div>
-                    </div> 
+                    <?php DynamicFormWidget::begin([
+                        'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                        'widgetBody' => '.container-items', // required: css class selector
+                        'widgetItem' => '.item', // required: css class
+                        'limit' => 20, // the maximum times, an element can be cloned (default 999)
+                        'min' => 1, // 0 or 1 (default 1)
+                        'insertButton' => '.add-item', // css class
+                        'deleteButton' => '.remove-item', // css class
+                        'model' => $modelsAddress[0],
+                        'formId' => 'dynamic-form',
+                        'formFields' => [
+                            'unidadmedida',
+                            'enero',
+                            'febrero',
+                            'marzo',
+                            'abril',
+                            'mayo',
+                            'junio',
+                            'agosto',
+                            'septiembre',
+                            'octubre',
+                            'novimbre',
+                            'diciembre',
+                        ],
+                    ]); ?>
 
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>
+                                <button type="button" class="add-item btn btn-success btn-sm pull-right"><i class="fa fa-plus"></i></button>
+                                <i class="glyphicon glyphicon-envelope"></i> Programacion de la meta fisica por unidad de medida
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="container-items"><!-- widgetBody -->
+                            <?php foreach ($modelsAddress as $i => $modelAddress): ?>
+                                <div class="item panel panel-default"><!-- widgetItem -->
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title pull-left"></h3>
+                                        <div class="pull-right">
+                                            <button type="button" class="remove-item btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <?php
+                                            // necessary for update action.
+                                            if (! $modelAddress->isNewRecord) {
+                                                echo Html::activeHiddenInput($modelAddress, "[{$i}]id");
+                                            }
+                                        ?>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <?= $form->field($modelAddress, "[{$i}]unidadmedida")->textInput(['maxlength' => true])->label('Unidad de Medida') ?>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <?= $form->field($modelAddress, "[{$i}]total")->textInput(['maxlength' => true])->label('Total de la meta') ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                                            <div class="col-sm-2">
+                                                                <?= $form->field($modelAddress, "[{$i}]enero")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <?= $form->field($modelAddress, "[{$i}]febrero")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <?= $form->field($modelAddress, "[{$i}]marzo")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <?= $form->field($modelAddress, "[{$i}]abril")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <?= $form->field($modelAddress, "[{$i}]mayo")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <?= $form->field($modelAddress, "[{$i}]junio")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                        </div><!-- .row -->
+                                                        <div class="row">
+                                                            <div class="col-sm-2">
+                                                                <?= $form->field($modelAddress, "[{$i}]julio")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <?= $form->field($modelAddress, "[{$i}]agosto")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <?= $form->field($modelAddress, "[{$i}]septiembre")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <?= $form->field($modelAddress, "[{$i}]octubre")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <?= $form->field($modelAddress, "[{$i}]noviembre")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <?= $form->field($modelAddress, "[{$i}]diciembre")->textInput(['maxlength' => true]) ?>
+                                                            </div>
+                                                        </div><!-- .row -->
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div><!-- .panel -->
+                    <?php DynamicFormWidget::end(); ?>
+
+                    <div class="form-group">
+                        <?= Html::submitButton($modelAddress->isNewRecord ? 'Guardar' : 'Actualizar', ['class' => 'btn btn-primary']) ?>
+                    </div>
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
-
-
-    
-
-    
-
-
-    
-
-    <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
-    </div>
-
+    <?php ActiveForm::end(); ?>
 
 </div>
-<?php ActiveForm::end(); ?>

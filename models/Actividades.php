@@ -128,6 +128,16 @@ class Actividades extends \yii\db\ActiveRecord
     }
 
     /**
+    * Gets query for [[UnidadMedidas]].
+    *
+    * @return \yii\db\ActiveQuery
+    */
+    public function getUnidadMedidas()
+    {
+       return $this->hasMany(UnidadMedida::className(), ['id_actividad' => 'idactividad']);
+    }
+
+    /**
      * Gets query for [[Tipo]].
      *
      * @return \yii\db\ActiveQuery
