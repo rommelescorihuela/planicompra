@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use kartik\select2\Select2;
 use app\models\Poa;
 
@@ -25,14 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
         
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
+
+    <?php
+    $gridColumns = [
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'id_tipo',
+                'group' => true,
                 'filter' => Select2::widget([
                     'model' =>  $searchModel,
                     'attribute' => 'id_tipo',
@@ -57,17 +56,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'pdf2' => function($url, $model){
                         if($model->id_tipo == 2){
-                            return Html::a('<span class="material-icons">
-                            picture_as_pdf
-                            </span>', ['pdf2', 'idpoa' => $model->idpoa]);
+                            return Html::a('<i class="fas fa-file-pdf"></i>', 
+                            ['pdf2', 'idpoa' => $model->idpoa]);
                         }
                        
                     },
                     'pdf' => function($url, $model){
                         if($model->id_tipo == 2){
-                        return Html::a('<span class="material-icons">
-                        picture_as_pdf
-                        </span>', ['pdf', 'idpoa' => $model->idpoa]);
+                        return Html::a('<i class="fas fa-file-pdf"></i>', 
+                        ['pdf', 'idpoa' => $model->idpoa]);
                     }
                    
                 },
@@ -81,16 +78,53 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                     'pdfaccion' => function($url, $model){
                         if($model->id_tipo == 1){
-                        return Html::a('<span class="material-icons">
-                        picture_as_pdf
-                        </span>', ['pdfaccion', 'idpoa' => $model->idpoa]);
+                        return Html::a('<i class="fas fa-file-pdf"></i>', 
+                        ['pdfaccion', 'idpoa' => $model->idpoa]);
                     }
                    
                 },
                 ]
             ],
+        ]; 
+        echo GridView::widget([
+        'id' => 'kv-grid-demo',
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => $gridColumns, // check this value by clicking GRID COLUMNS SETUP button at top of the page
+        'headerContainer' => ['style' => 'top:50px', 'class' => 'kv-table-header'], // offset from top
+        'floatHeader' => true, // table header floats when you scroll
+        'floatPageSummary' => true, // table page summary floats when you scroll
+        'floatFooter' => false, // disable floating of table footer
+        'pjax' => false, // pjax is set to always false for this demo
+        // parameters from the demo form
+        'responsive' => false,
+        'bordered' => true,
+        'striped' => false,
+        'condensed' => true,
+        'hover' => true,
+        //'showPageSummary' => true,
+        // set export properties
+        'export' => [
+            'fontAwesome' => true
         ],
-    ]); ?>
-
-
+        'exportConfig' => [
+            'html' => [],
+            'csv' => [],
+            'txt' => [],
+            'xls' => [],
+            'pdf' => [],
+            'json' => [],
+        ],
+        // set your toolbar
+        'toolbar' =>  [
+            '{export}',
+            '{toggleData}',
+        ],
+        'toggleDataContainer' => ['class' => 'btn-group mr-2 me-2'],
+        'persistResize' => false,
+        'toggleDataOptions' => ['minCount' => 10],
+        'itemLabelSingle' => 'Proyecto o Acción Centralizada',
+        'itemLabelPlural' => 'Proyectos o Acciónes Centralizadas'
+    ]);
+    ?>
 </div>

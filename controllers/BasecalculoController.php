@@ -317,7 +317,7 @@ class BasecalculoController extends Controller
             $list = Costo::find()->Where(['idproducto'=> $id])->asArray()->one(); 
             $list1 = Requerimiento::find()->Where(['idproducto'=> $id])->asArray()->one();
             $list_m = Iva::find()->where(['id_iva' => $list1['iva']])->asArray()->one();
-            echo $list['costo'].'$$'.$list_m['iva'];
+            echo number_format($list['costo'], 2, ',', '.').'$$'.number_format($list_m['iva'], 2, ',', '.');
             /*$selected  = null;
             if ($id != null && count($list) > 0) {
                 $selected = '';

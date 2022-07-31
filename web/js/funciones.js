@@ -13,45 +13,126 @@ $( document ).ready(function() {
     
      $("#basecalculo-cantidad").blur(function(){
         costo=$("#basecalculo-costo").val();
+        costo1=costo.replace(/\./g, '');
+        costo2=costo1.replace(",",".")
+
         cantidad=$("#basecalculo-cantidad").val();
-        total = parseFloat(costo) * parseFloat(cantidad);
-        $("#basecalculo-monto_total").val(numberWithCommas(total));
-
+        subtotal = parseFloat(costo2) * parseFloat(cantidad);
+        $("#basecalculo-monto_total").val(numberWithCommas(subtotal.toFixed(0)));
         iva=$("#basecalculo-iva").val();
-        total=$("#basecalculo-monto_total").val();
-        iva_monto = parseFloat(iva) * parseFloat(total) / 100;
-        $("#basecalculo-iva_monto").val(numberWithCommas(iva_monto));
+        
 
-        total_iva= parseFloat(total) + parseFloat(numberWithCommas(iva_monto));
-        $("#basecalculo-total_iva").val(total_iva);
+        iva_monto = parseFloat(iva) * parseFloat(subtotal) / 100;
+        $("#basecalculo-iva_monto").val(numberWithCommas(iva_monto.toFixed(0)));
 
-        total_iva = total_iva / 12;
-        $("#basecalculo-enero").val(total_iva);
+        total_iva= parseFloat(subtotal) + parseFloat(iva_monto);
+        $("#basecalculo-total_iva").val(numberWithCommas(total_iva.toFixed(0)));
 
-        $("#basecalculo-febrero").val(total_iva);
+        mensual = (total_iva / 12).toFixed(0);
+        $("#basecalculo-enero").val(numberWithCommas(mensual));
 
-        $("#basecalculo-marzo").val(total_iva);
+        $("#basecalculo-febrero").val(numberWithCommas(mensual));
 
-        $("#basecalculo-abril").val(total_iva);
+        $("#basecalculo-marzo").val(numberWithCommas(mensual));
 
-        $("#basecalculo-mayo").val(total_iva);
+        $("#basecalculo-abril").val(numberWithCommas(mensual));
 
-        $("#basecalculo-junio").val(total_iva);
+        $("#basecalculo-mayo").val(numberWithCommas(mensual));
 
-        $("#basecalculo-julio").val(total_iva);
+        $("#basecalculo-junio").val(numberWithCommas(mensual));
 
-        $("#basecalculo-agosto").val(total_iva);
+        $("#basecalculo-julio").val(numberWithCommas(mensual));
 
-        $("#basecalculo-septiembre").val(total_iva);
+        $("#basecalculo-agosto").val(numberWithCommas(mensual));
 
-        $("#basecalculo-octubre").val(total_iva);
+        $("#basecalculo-septiembre").val(numberWithCommas(mensual));
 
-        $("#basecalculo-noviembre").val(total_iva);
+        $("#basecalculo-octubre").val(numberWithCommas(mensual));
 
-        $("#basecalculo-diciembre").val(total_iva);
+        $("#basecalculo-noviembre").val(numberWithCommas(mensual));
+
+        $("#basecalculo-diciembre").val(numberWithCommas(mensual));
 
     });
 
+
+    $("#basecalculo-guardar").click(function(){
+
+        enero = $("#basecalculo-enero").val();
+
+        febrero = $("#basecalculo-febrero").val();
+
+        marzo = $("#basecalculo-marzo").val();
+
+        abril = $("#basecalculo-abril").val();
+
+        mayo = $("#basecalculo-mayo").val();
+
+        junio = $("#basecalculo-junio").val();
+
+        julio = $("#basecalculo-julio").val();
+
+        agosto = $("#basecalculo-agosto").val();
+
+        septiembre = $("#basecalculo-septiembre").val();
+
+        octubre = $("#basecalculo-octubre").val();
+
+        noviembre = $("#basecalculo-noviembre").val();
+
+        diciembre = $("#basecalculo-diciembre").val();
+
+        total_mensual = parseFloat(enero.replace(/\./g, ''))+parseFloat(febrero.replace(/\./g, ''))+parseFloat(marzo.replace(/\./g, ''))+parseFloat(abril.replace(/\./g, ''))+parseFloat(mayo.replace(/\./g, ''))+parseFloat(junio.replace(/\./g, ''))+parseFloat(julio.replace(/\./g, ''))+parseFloat(agosto.replace(/\./g, ''))+parseFloat(septiembre.replace(/\./g, ''))+parseFloat(octubre.replace(/\./g, ''))+parseFloat(noviembre.replace(/\./g, ''))+parseFloat(diciembre.replace(/\./g, ''))
+
+        total = $("#basecalculo-total_iva").val().replace(/\./g, '');
+
+        diferencia = total_mensual - total
+        console.log(diferencia)
+        if(diferencia > 0 ){   
+            Swal.fire(
+                'Error',
+                'La distribucion de gastos mensual es mayor al total calculado por favor reste la cantidad de: '+Math.abs(diferencia)+' de manera total o distribuida en el mes o los meses que desee',
+                'error'
+            )
+        }
+        else if(diferencia < 0 ){
+            Swal.fire(
+                'Error',
+                'La distribucion de gastos mensual es menor al total calculado por favor adicione la cantidad de: '+Math.abs(diferencia)+' de manera total o distribuida en el mes o los meses que desee',
+                'error'
+            )
+        }
+        else if(diferencia == 0)
+        {
+            $("#basecalculo-formulario").submit();
+        }
+     })
+
+    $("#basecalculo-borrar").click(function(){
+        $("#basecalculo-enero").val(numberWithCommas(0));
+
+        $("#basecalculo-febrero").val(numberWithCommas(0));
+
+        $("#basecalculo-marzo").val(numberWithCommas(0));
+
+        $("#basecalculo-abril").val(numberWithCommas(0));
+
+        $("#basecalculo-mayo").val(numberWithCommas(0));
+
+        $("#basecalculo-junio").val(numberWithCommas(0));
+
+        $("#basecalculo-julio").val(numberWithCommas(0));
+
+        $("#basecalculo-agosto").val(numberWithCommas(0));
+
+        $("#basecalculo-septiembre").val(numberWithCommas(0));
+
+        $("#basecalculo-octubre").val(numberWithCommas(0));
+
+        $("#basecalculo-noviembre").val(numberWithCommas(0));
+
+        $("#basecalculo-diciembre").val(numberWithCommas(0));
+    })
     $('#accion-cantidad').keyup(function(){
         if($('#accion-cantidad').length > 0)
         {
@@ -82,7 +163,7 @@ $( document ).ready(function() {
         {
             Swal.fire(
               'Error',
-              'La distribucion de la meta es diferecte a la cantidad total de la meta',
+              'La distribucion de la meta es diferente a la cantidad total de la meta',
               'error'
             )
         }

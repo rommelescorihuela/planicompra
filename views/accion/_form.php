@@ -37,7 +37,7 @@ use kartik\select2\Select2;
                                 'url' => Url::to(['poas']),
                                 'params' => ['input-type-1', 'input-type-2']
                                 ]
-                            ])->label('Poa') ?>
+                            ])->label('Accion Centralizada') ?>
                         </div>
                         <div class="col-md-3">
                             <?= $form->field($model, 'idgerencia')->widget(Select2::classname(), [
@@ -49,16 +49,10 @@ use kartik\select2\Select2;
                             ])->label('Unidad ejecutora') ?>
                         </div>
                         <div class="col-md-3">
-                            <?= $form->field($model, 'servicio')->textInput()->label('Bien o Servicio') ?>
+                            <?= $form->field($model, 'unidadmedida')->textInput()->label('Unidad de medida') ?>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
-                            <?= $form->field($model, 'unidadmedida')->textInput() ?>
-                        </div>
-                        <div class="col-md-3">
-                            <?= $form->field($model, 'poderacion')->textInput() ?>
-                        </div>
                         <div class="col-md-3">
                             <?php echo $form->field($model, 'fechainicio')->widget(DatePicker::classname(), [
                                  'options' => ['placeholder' => 'Seleccione fecha...'],
@@ -75,9 +69,7 @@ use kartik\select2\Select2;
                                 ]
                             ])->label('Fin del plazo de ejecucion');?>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <?= $form->field($model, 'descripcion')->textarea(['rows' => 3]) ?>
                         </div>
                     </div>

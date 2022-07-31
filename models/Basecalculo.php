@@ -77,8 +77,8 @@ class Basecalculo extends \yii\db\ActiveRecord
         return [
             [['id_poa', 'id_accion', 'id_actividad', 'id_producto', 'id_medida', 'cantidad', 'id_gerencia', 'id_partida', 'id_generica', 'id_especifico', 'id_usuario', 'iva', 'id_moneda', 'n_dias'], 'default', 'value' => null],
             [['id_poa', 'id_accion', 'id_actividad', 'id_producto'], 'required'],
-            [['id_poa', 'id_accion', 'id_actividad', 'id_producto', 'id_medida', 'cantidad', 'id_gerencia', 'id_partida', 'id_generica', 'id_especifico', 'id_usuario', 'iva', 'id_moneda', 'n_dias'], 'integer'],
-            [['monto_total', 'costo', 'total_iva', 'iva_monto', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre', 'ponderacion'], 'number'],
+            [['id_poa', 'id_accion', 'id_actividad', 'id_producto', 'id_medida', 'cantidad', 'id_gerencia', 'id_partida', 'id_generica', 'id_especifico', 'id_usuario', 'id_moneda', 'n_dias'], 'integer'],
+            [['monto_total', 'costo', 'total_iva', 'iva', 'iva_monto', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre', 'ponderacion'], 'string'],
             [['fecha', 'fecha_h', 'fecha_i', 'fecha_f'], 'safe'],
             [['estatus'], 'boolean'],
             [['id_accion'], 'exist', 'skipOnError' => true, 'targetClass' => Accion::className(), 'targetAttribute' => ['id_accion' => 'id_accion']],

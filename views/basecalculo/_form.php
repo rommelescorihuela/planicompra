@@ -15,7 +15,7 @@ use kartik\select2\Select2;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(['id'=>'basecalculo-formulario']); ?>
 <div class="basecalculo-form">
     <div class="row">
         <div class="col-md-12">
@@ -179,6 +179,11 @@ use kartik\select2\Select2;
                         <div class="col-md-4"></div>
                     </div>
                     <div class="row">
+                        <div class="col-md-4">
+                            <?= Html::Button('Borrar', ['id'=>'basecalculo-borrar','class' => 'btn btn-secondary btn-sm']) ?>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-2"><?= $form->field($model, 'enero')->textInput() ?></div>
                         <div class="col-md-2"><?= $form->field($model, 'febrero')->textInput() ?></div>
                         <div class="col-md-2"><?= $form->field($model, 'marzo')->textInput() ?></div>
@@ -195,7 +200,7 @@ use kartik\select2\Select2;
                          <div class="col-md-2"><?= $form->field($model, 'diciembre')->textInput() ?></div>
                     </div>
                     <div class="col-md-12">
-                        <?= Html::submitButton('Guardar', ['class' => 'btn btn-warning btn-send']) ?>
+                        <?= Html::Button('Guardar', ['id'=>'basecalculo-guardar','class' => 'btn btn-warning btn-send']) ?>
                     </div>
 
                     </div>
