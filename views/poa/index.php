@@ -6,6 +6,8 @@ use yii\grid\ActionColumn;
 use kartik\grid\GridView;
 use kartik\select2\Select2;
 use app\models\Poa;
+use app\models\Gerencia;
+use app\models\Accion;
 
 
 
@@ -49,41 +51,27 @@ $this->params['breadcrumbs'][] = $this->title;
             'descripcion:ntext',
             'objetivo:ntext',
             'nombre_apellido:ntext',
+            [   
+                'filter' => Select2::widget([
+                    'model' =>  $searchModel,
+                    'attribute' => 'id_gerencia',
+                    'data' => Accion::Lista_gerenci(),
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'options' => [
+                        'placeholder' => 'Seleccione...',
+                        'disabled' => Yii::$app->user->identity->id_perfil == 2 ? true : false
+                    ],
+                    'pluginOptions' => ['allowClear' => true],
+
+                 ]),
+                'label' => 'Unidad Ejecutora',
+                'value' =>'gerencia.gerencia'
+            ],
     
             [
                 'class' => ActionColumn::className(),
-                'template' => '{view}{update}</br>{pdf2}{pdf} {pdfaccion}',
-                'buttons' => [
-                    'pdf2' => function($url, $model){
-                        if($model->id_tipo == 2){
-                            return Html::a('<i class="fas fa-file-pdf"></i>', 
-                            ['pdf2', 'idpoa' => $model->idpoa]);
-                        }
-                       
-                    },
-                    'pdf' => function($url, $model){
-                        if($model->id_tipo == 2){
-                        return Html::a('<i class="fas fa-file-pdf"></i>', 
-                        ['pdf', 'idpoa' => $model->idpoa]);
-                    }
-                   
-                },
-                    'pdfcompleto' => function($url, $model){
-                        if($model->id_tipo == 1){
-                        return Html::a('<span class="material-icons">
-                        picture_as_pdf
-                        </span>', ['pdfcompleto', 'idpoa' => $model->idpoa]);
-                    }
-                   
-                },
-                    'pdfaccion' => function($url, $model){
-                        if($model->id_tipo == 1){
-                        return Html::a('<i class="fas fa-file-pdf"></i>', 
-                        ['pdfaccion', 'idpoa' => $model->idpoa]);
-                    }
-                   
-                },
-                ]
+                'template' => '{view}{update}',  
+                'header'=>"Acciones",
             ],
         ]; 
         echo GridView::widget([

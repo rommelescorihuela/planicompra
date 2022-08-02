@@ -41,7 +41,7 @@ class ActividadesSearch extends Actividades
      */
     public function search($params)
     {
-        $query = Actividades::find()->orderBy(['idactividad' => SORT_DESC]);
+        $query = Actividades::find()->orderBy(['idaccionespecifica' => SORT_DESC]);
         
         
 

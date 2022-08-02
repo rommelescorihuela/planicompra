@@ -62,7 +62,7 @@ class Poa extends \yii\db\ActiveRecord
             'nombre_apellido' => 'Nombre y Apellido',
             'id_tipo' => 'Categoria',
             'idvisibilidad' => 'Idvisibilidad',
-            'id_gerencia' => 'Dependencia',
+            'id_gerencia' => 'Unidad Ejecutora',
         ];
     }
 

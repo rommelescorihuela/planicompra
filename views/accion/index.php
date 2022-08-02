@@ -33,6 +33,23 @@ $this->params['breadcrumbs'][] = $this->title;
 $gridColumns = [
     ['class' => 'yii\grid\SerialColumn'],
     [
+        'label' => 'Categoria',
+        'attribute' => 'id_tipo',
+        'group' => true,
+        'value' =>'tipo.tipo',
+        'filter' => Select2::widget([
+            'model' =>  $searchModel,
+            'attribute' => 'id_tipo',
+            'data' => Poa::Lista_tipo(),
+            'theme' => Select2::THEME_BOOTSTRAP,
+            'options' => [
+                'placeholder' => 'Seleccione...'
+            ],
+            'pluginOptions' => ['allowClear' => true],
+        ]),
+    ],
+    [
+        'label' => 'Proyecto o Acción Centralizada',
         'attribute' => 'idpoa',
         'filter' => Select2::widget([
             'model' =>  $searchModel,
@@ -46,7 +63,6 @@ $gridColumns = [
          ]),
         'value' =>'idpoa0.descripcion',
         'group' => true, 
-        'label' => 'Accion Centralizada',
     ],
     [
         'label' => 'Accion Especifica',
@@ -72,8 +88,7 @@ $gridColumns = [
     ],
     [
         'class' => ActionColumn::className(),
-        'template' => '{view}{update}',
-        
+        'template' => '{view}{update}',  
     ],
 ];
 echo GridView::widget([
