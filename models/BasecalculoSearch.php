@@ -42,7 +42,7 @@ class BasecalculoSearch extends Basecalculo
      */
     public function search($params)
     {
-        $query = Basecalculo::find()->orderBy(['id_plan' => SORT_DESC]);
+        $query = Basecalculo::find()->orderBy(['id_poa' => SORT_DESC,'id_plan' => SORT_DESC]);
 
         // add conditions that should always apply here
 

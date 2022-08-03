@@ -45,6 +45,10 @@ class BasecalculoController extends Controller
         );
     }
 
+    public function actionGridview($id){
+        return '2';
+    }
+
     /**
      * Lists all Basecalculo models.
      *
@@ -135,7 +139,16 @@ class BasecalculoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_plan]);
+                //return $this->redirect(['view', 'id' => $model->id_plan]);
+                return $this->render('create', [
+                    'model' => $model,
+                    'lista_tipo' =>$lista_tipo,
+                    'lista_producto' =>$lista_producto,
+                    'flag' => $flag,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+
+                ]);
             }
         } else {
             $model->loadDefaultValues();

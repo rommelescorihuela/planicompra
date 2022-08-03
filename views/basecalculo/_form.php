@@ -14,9 +14,10 @@ use app\models\Actividades;
 use app\models\Especifico;
 use app\models\Generico;
 use app\models\Partida;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use app\models\Basecalculo;
 use yii\grid\ActionColumn;
+use yii\widgets\Pjax;
 
 
 
@@ -24,8 +25,8 @@ use yii\grid\ActionColumn;
 /* @var $model app\models\Basecalculo */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
-<?php $form = ActiveForm::begin(['id'=>'basecalculo-formulario']); ?>
+<?php
+$form = ActiveForm::begin(['id'=>'basecalculo-formulario','options' => ['data-pjax' => true ]]); ?>
 <div class="basecalculo-form">
     <div class="row">
         <div class="col-md-12">
@@ -36,13 +37,20 @@ use yii\grid\ActionColumn;
                 <div class="card-body" >
                     <div class="row">
                         <div class="col-md-2">
-                            <?= $form->field($model, 'id_tipo')->dropDownList($lista_tipo, ['id'=>'id_tipo', 'prompt' => 'Seleccionar']); ?>
+                            <?= $form->field($model, 'id_tipo')->dropDownList($lista_tipo, [
+                                'id'=>'id_tipo', 
+                                'prompt' => 'Seleccionar',
+                            ]); ?>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <?= $form->field($model, 'id_poa')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
                             'data' => ArrayHelper::map(Poa::find()->where(['id_tipo' =>$model->id_tipo])->orderBy('idpoa')->all(), 'idpoa', 'descripcion'),
-                            'options' => ['id' => 'idpoa', 'placeholder' => 'Seleccione...'],
+                            'options' => [
+                                'id' => 'idpoa', 
+                                'placeholder' => 'Seleccione...',
+                                
+                                ],
                             'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                             'pluginOptions'=>[
                                 'depends'=>['id_tipo'],
@@ -218,7 +226,9 @@ use yii\grid\ActionColumn;
 </div>
 <?php ActiveForm::end(); ?>
 
+
  <?= GridView::widget([
+        'id' => 'base-gridview',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -226,6 +236,7 @@ use yii\grid\ActionColumn;
 
             [
                 'attribute' => 'id_poa',
+                'group' => true,
                 'filter' => Select2::widget([
                     'model' =>  $searchModel,
                     'attribute' => 'id_poa',
@@ -298,4 +309,5 @@ use yii\grid\ActionColumn;
                 
             ],
         ],
-    ]); ?>
+    ]); 
+?>

@@ -4,7 +4,7 @@ use app\models\Basecalculo;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'id_poa',
+                'group' =>true,
                 'filter' => Select2::widget([
                     'model' =>  $searchModel,
                     'attribute' => 'id_poa',

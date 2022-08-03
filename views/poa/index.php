@@ -15,7 +15,7 @@ use app\models\Accion;
 /* @var $searchModel app\models\PoaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'POA';
+$this->title = 'Formulacion';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="poa-index">
@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Crear Poa', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Formulacion', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
         
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
