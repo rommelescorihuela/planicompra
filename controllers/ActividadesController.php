@@ -67,8 +67,11 @@ class ActividadesController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $unidadmedida = Unidadmedida::find()->Where(['id_actividad' => $id])->all();
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'unidadmedida'=>$unidadmedida,
         ]);
     }
 

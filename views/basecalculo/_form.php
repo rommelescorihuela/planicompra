@@ -7,6 +7,16 @@ use yii\widgets\ActiveForm;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
+use app\models\Poa;
+use app\models\Accion;
+use app\models\Actividades;
+use app\models\Especifico;
+use app\models\Generico;
+use app\models\Partida;
+use yii\grid\GridView;
+use app\models\Basecalculo;
+use yii\grid\ActionColumn;
 
 
 
@@ -26,18 +36,12 @@ use kartik\select2\Select2;
                 <div class="card-body" >
                     <div class="row">
                         <div class="col-md-2">
-                            <?= $form->field($model, 'id_tipo')->widget(Select2::classname(), [
-                            'data' => $lista_tipo,
-                            'options' => ['id'=>'id_tipo', 'placeholder' => 'Seleccionar...'],
-                            'pluginOptions' => [
-                            'allowClear' => true
-                            ],
-                            ]) ?>
+                            <?= $form->field($model, 'id_tipo')->dropDownList($lista_tipo, ['id'=>'id_tipo', 'prompt' => 'Seleccionar']); ?>
                         </div>
                         <div class="col-md-2">
                             <?= $form->field($model, 'id_poa')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
-                            'data' => [2 => ''],
+                            'data' => ArrayHelper::map(Poa::find()->where(['id_tipo' =>$model->id_tipo])->orderBy('idpoa')->all(), 'idpoa', 'descripcion'),
                             'options' => ['id' => 'idpoa', 'placeholder' => 'Seleccione...'],
                             'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                             'pluginOptions'=>[
@@ -50,7 +54,7 @@ use kartik\select2\Select2;
                         <div class="col-md-2">
                             <?= $form->field($model, 'id_accion')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
-                            'data' => [2 => ''],
+                            'data' => ArrayHelper::map(Accion::find()->where(['idpoa' =>$model->id_poa])->orderBy('id_accion')->all(), 'id_accion', 'descripcion'),
                             'options' => ['id' => 'idaccionespecifica', 'placeholder' => 'Seleccione...'],
                             'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                             'pluginOptions'=>[
@@ -63,7 +67,7 @@ use kartik\select2\Select2;
                         <div class="col-md-2">
                             <?= $form->field($model, 'id_actividad')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
-                            'data' => [2 => ''],
+                            'data' => ArrayHelper::map(Actividades::find()->where(['idactividad' =>$model->id_actividad])->orderBy('idactividad')->all(), 'idactividad', 'descripcion'),
                             'options' => ['id' => 'idactividad', 'placeholder' => 'Seleccione...'],
                             'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                             'pluginOptions'=>[
@@ -93,13 +97,16 @@ use kartik\select2\Select2;
                             ])->label("Producto/Bien/Servicio") ?>
                         </div>
                     </div>
+                    <?php if($flag == 'create'): ?>
                     <div id="tabla-datos" style="display: none;">
-                        
+                    <?php elseif($flag == 'update'):?>
+                    <div id="tabla-datos" style="display: block;">
+                    <?php endif ?>
                     <div class="row">
                         <div class="col-md-4">
                             <?= $form->field($model, 'id_partida')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
-                            'data' => [2 => ''],
+                            'data' => ArrayHelper::map(Partida::find()->where(['id' =>$model->id_partida])->orderBy('id')->all(), 'id', 'descripcion'),
                             'options' => ['id' => 'id_partida', 'placeholder' => 'Seleccione...'],
                             'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                             'pluginOptions'=>[
@@ -112,7 +119,7 @@ use kartik\select2\Select2;
                         <div class="col-md-4">
                             <?= $form->field($model, 'id_generica')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
-                            'data' => [2 => ''],
+                            'data' => ArrayHelper::map(Generico::find()->where(['id_generico' =>$model->id_generica])->orderBy('id_generico')->all(), 'id_generico', 'descripcion'),
                             'options' => ['id' => 'id_generica', 'placeholder' => 'Seleccione...'],
                             'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                             'pluginOptions'=>[
@@ -125,7 +132,7 @@ use kartik\select2\Select2;
                         <div class="col-md-4">
                             <?= $form->field($model, 'id_especifico')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
-                            'data' => [2 => ''],
+                            'data' => ArrayHelper::map(Especifico::find()->where(['id_especifico' =>$model->id_especifico])->orderBy('id_especifico')->all(), 'id_especifico', 'descripcion'),
                             'options' => ['id' => 'id_especifico', 'placeholder' => 'Seleccione...'],
                             'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                             'pluginOptions'=>[
@@ -210,3 +217,85 @@ use kartik\select2\Select2;
     </div>    
 </div>
 <?php ActiveForm::end(); ?>
+
+ <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            [
+                'attribute' => 'id_poa',
+                'filter' => Select2::widget([
+                    'model' =>  $searchModel,
+                    'attribute' => 'id_poa',
+                    'data' => Basecalculo::Lista_poa(),
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'options' => [
+                        'placeholder' => 'Seleccione...'
+                        
+                    ],
+                    'pluginOptions' => ['allowClear' => true],
+
+                 ]),
+                 'value' =>'poa.descripcion',
+            ],
+            [
+                'attribute' => 'id_accion',
+                'filter' => Select2::widget([
+                    'model' =>  $searchModel,
+                    'attribute' => 'id_accion',
+                    'data' => Basecalculo::Lista_accion(),
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'options' => [
+                        'placeholder' => 'Seleccione...'
+                    ],
+                    'pluginOptions' => ['allowClear' => true],
+
+                 ]),
+                 'value' =>'accion.descripcion',
+            ],
+            [
+                'attribute' => 'id_actividad',
+                'filter' => Select2::widget([
+                    'model' =>  $searchModel,
+                    'attribute' => 'id_actividad',
+                    'data' => Basecalculo::Lista_actividad(),
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'options' => [
+                        'placeholder' => 'Seleccione...'
+                    ],
+                    'pluginOptions' => ['allowClear' => true],
+
+                 ]),
+                 'value' =>'actividad.descripcion',
+            ],
+            [
+                'attribute' => 'id_producto',
+                'filter' => Select2::widget([
+                    'model' =>  $searchModel,
+                    'attribute' => 'id_producto',
+                    'data' => Basecalculo::Lista_producto(),
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'options' => [
+                        'placeholder' => 'Seleccione...'
+                    ],
+                    'pluginOptions' => ['allowClear' => true],
+
+                 ]),
+                 'value' =>'producto.producto',
+            ],
+            [
+                'class' => ActionColumn::className(),
+                'header'=>"Acciones",
+                'template' => '{view}{update}{delete}  {pdf}',
+                'buttons' => [
+                    'pdf' => function($url, $model){
+                        return Html::a('', ['pdf', 'id_plan' => $model->id_plan],['class'=>'fa fa-print 
+                        ']);
+                    }
+                ]
+                
+            ],
+        ],
+    ]); ?>

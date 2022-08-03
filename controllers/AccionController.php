@@ -77,7 +77,7 @@ class AccionController extends Controller
     public function actionCreate()
     {
         $model = new Accion();
-
+        $flag = 'create';
         $model->idgerencia = Yii::$app->user->identity->id_gerencia;
         $model->enero = 0;
         $model->febrero = 0;
@@ -115,6 +115,7 @@ class AccionController extends Controller
             'model' => $model,
             'lista_tipo' => $lista_tipo,
             'listagerenci'=> $listagerenci,
+            'flag' => $flag,
 
         ]);
     }
@@ -129,7 +130,8 @@ class AccionController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->cantidad=$model->enero+$model->febrero+$model->marzo+$model->abril+$model->mayo+$model->junio+$model->julio+$model->agosto+$model->septiembre+$model->octubre+$model->noviembre+$model->diciembre;
+        $flag = 'update';
         if (Yii::$app->user->identity->id_perfil == 1)  {
             $tipo = Tipo::find()->orderBy('tipo')->all();
             $lista_tipo = ArrayHelper::map($tipo, 'id_tipo', 'tipo');
@@ -149,6 +151,7 @@ class AccionController extends Controller
             'model' => $model,
             'lista_tipo' => $lista_tipo,
             'listagerenci'=> $listagerenci,
+            'flag' => $flag,
 
         ]);
     }

@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id_plan
  * @property int|null $id_poa
+ * @property int|null $id_tipo
  * @property int|null $id_accion
  * @property int|null $id_actividad
  * @property int|null $id_producto
@@ -59,7 +60,6 @@ use yii\helpers\ArrayHelper;
  */
 class Basecalculo extends \yii\db\ActiveRecord
 {
-    public $id_tipo;
 
     /**
      * {@inheritdoc}
@@ -75,8 +75,8 @@ class Basecalculo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_poa', 'id_accion', 'id_actividad', 'id_producto', 'id_medida', 'cantidad', 'id_gerencia', 'id_partida', 'id_generica', 'id_especifico', 'id_usuario', 'iva', 'id_moneda', 'n_dias'], 'default', 'value' => null],
-            [['id_poa', 'id_accion', 'id_actividad', 'id_producto'], 'required'],
+            [['id_tipo','id_poa', 'id_accion', 'id_actividad', 'id_producto', 'id_medida', 'cantidad', 'id_gerencia', 'id_partida', 'id_generica', 'id_especifico', 'id_usuario', 'iva', 'id_moneda', 'n_dias'], 'default', 'value' => null],
+            [['id_tipo','id_poa', 'id_accion', 'id_actividad', 'id_producto'], 'required'],
             [['id_poa', 'id_accion', 'id_actividad', 'id_producto', 'id_medida', 'cantidad', 'id_gerencia', 'id_partida', 'id_generica', 'id_especifico', 'id_usuario', 'id_moneda', 'n_dias'], 'integer'],
             [['monto_total', 'costo', 'total_iva', 'iva', 'iva_monto', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre', 'ponderacion'], 'string'],
             [['fecha', 'fecha_h', 'fecha_i', 'fecha_f'], 'safe'],
@@ -101,7 +101,7 @@ class Basecalculo extends \yii\db\ActiveRecord
     {
         return [
             'id_plan' => 'Id Plan',
-            'id_poa' => 'Proyecto o Acción Centralizada',
+            'id_poa' => 'Proyecto y/o Acción Centralizada',
             'id_accion' => 'Accion Especifica',
             'id_actividad' => 'Actividad',
             'id_producto' => 'Producto',
@@ -137,7 +137,7 @@ class Basecalculo extends \yii\db\ActiveRecord
             'noviembre' => 'Noviembre',
             'diciembre' => 'Diciembre',
             'ponderacion' => 'Ponderacion',
-            'id_tipo' => 'Categoria',
+            'id_tipo' => 'Categoría Presupuestaria',
         ];
     }
 

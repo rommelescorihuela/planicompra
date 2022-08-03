@@ -22,29 +22,21 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title"><b>Resumen</b></h3>
-                <div class="card-tools">
-                    <div class="input-group input-group-sm" style="widtd: 150px;">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                     <tbody>
                         <tr>
-                            <td colspan="2"><b>Tipo:</b> <?= $model->tipo->tipo?></td>
-                            <td colspan="2"><b>Accion Centralizada:</b> <?=$model->idpoa0->descripcion?></td>
+                            <td colspan="1"><b>Categoría Presupuestaria:</b> <?= $model->tipo->tipo?></td>
+                            <td colspan="1"><b>Proyecto y/o Acción Centralizada:</b> <?=$model->idpoa0->descripcion?></td>
                             <td colspan="2"><b>Accion Especifica:</b> <?=$model->descripcion?></td>
+                            <td colspan="2"><b>Unidad de Ejecucion:</b> <?=$model->idgerencia0->gerencia?></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><b>Fecha de Inicio:</b> <?=$model->fechainicio?></td>
-                            <td colspan="2"><b>Fecha de Fin:</b> <?=$model->fechafin?></td>
-                            <td colspan="2"><b>Unidad de Medida:</b> <?=$model->unidadmedida?></td>
+                            <td colspan="1"><b>Fecha de Inicio:</b> <?= date_format(date_create($model->fechainicio),"d-m-Y");?></td>
+                            <td colspan="1"><b>Fecha de Fin:</b> <?= date_format(date_create($model->fechafin),"d-m-Y")?></td>
+                            <td colspan="4"><b>Unidad de Medida:</b> <?=$model->unidadmedida?></td>
                         </tr>
                         <tr>
                             <td colspan="12" ><b>Programacion fisica de la meta</b></td>

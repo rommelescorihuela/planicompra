@@ -6,6 +6,9 @@ use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
+use app\models\Poa;
+use yii\helpers\ArrayHelper;
+
 
 
 
@@ -24,12 +27,13 @@ use kartik\select2\Select2;
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <?= $form->field($model, 'id_tipo')->dropDownList($lista_tipo, ['id'=>'id_tipo', 'prompt' => 'Seleccionar'])->label('Categoria'); ?>
+                            <?= $form->field($model, 'id_tipo')->dropDownList($lista_tipo, ['id'=>'id_tipo', 'prompt' => 'Seleccionar'])->label('Categoría Presupuestaria'); ?>
                         </div>
+        
                         <div class="col-md-3">
                             <?= $form->field($model, 'idpoa')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
-                            'data' => [2 => ''],
+                            'data' => ArrayHelper::map(Poa::find()->orderBy('idpoa')->all(), 'idpoa', 'descripcion'),
                             'options' => ['id' => 'idpoa', 'placeholder' => 'Seleccione...'],
                             'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                             'pluginOptions'=>[
@@ -70,7 +74,7 @@ use kartik\select2\Select2;
                             ])->label('Fin del plazo de ejecucion');?>
                         </div>
                         <div class="col-md-6">
-                            <?= $form->field($model, 'descripcion')->textarea(['rows' => 3]) ?>
+                            <?= $form->field($model, 'descripcion')->textInput() ?>
                         </div>
                     </div>
                     <div class="row">
@@ -85,7 +89,11 @@ use kartik\select2\Select2;
                             <?= $form->field($model, 'cantidad')->textInput()->label('Cantidad Total de la Meta') ?>
                         </div>
                     </div>
+                    <?php if($flag == 'update'):?>
+                    <div id="meta" style="display: block;">
+                    <?php else: ?>
                     <div id="meta" style="display: none;">
+                    <?php endif ?>
                         <div class="row">
                             <div class="col-md-2"><?= $form->field($model, 'enero')->textInput() ?></div>
                             <div class="col-md-2"><?= $form->field($model, 'febrero')->textInput() ?></div>

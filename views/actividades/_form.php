@@ -5,6 +5,11 @@ use yii\widgets\ActiveForm;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 use wbraganca\dynamicform\DynamicFormWidget;
+use yii\helpers\ArrayHelper;
+use app\models\Poa;
+use app\models\Accion;
+
+
 ?>
 
 <div class="customer-form">
@@ -23,7 +28,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                         <div class="col-md-3">
                             <?= $form->field($model, 'id_poa')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
-                            'data' => [2 => ''],
+                            'data' => ArrayHelper::map(Poa::find()->where(['id_tipo' =>$model->id_tipo])->orderBy('idpoa')->all(), 'idpoa', 'descripcion'),
                             'options' => ['id' => 'idpoa', 'placeholder' => 'Seleccione...'],
                             'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                             'pluginOptions'=>[
@@ -36,7 +41,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                         <div class="col-md-3">
                             <?= $form->field($model, 'idaccionespecifica')->widget(DepDrop::classname(), [
                                 'type' => DepDrop::TYPE_SELECT2,
-                                'data' => [2 => ''],
+                                'data' =>  ArrayHelper::map(Accion::find()->where(['idpoa' =>$model->id_poa])->orderBy('id_accion')->all(), 'id_accion', 'descripcion'),
                                 'options' => ['id' => 'idaccionespecifica', 'placeholder' => 'Seleccione...'],
                                 'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                                 'pluginOptions'=>[

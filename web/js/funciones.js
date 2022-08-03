@@ -159,15 +159,23 @@ $( document ).ready(function() {
         diciembre = $('#accion-diciembre').val()
         totalmes = (parseFloat(enero)+parseFloat(febrero)+parseFloat(marzo)+parseFloat(abril)+parseFloat(mayo)+parseFloat(junio)+parseFloat(julio)+parseFloat(agosto)+parseFloat(septiembre)+parseFloat(octubre)+parseFloat(noviembre)+parseFloat(diciembre))
         total = parseFloat(cantidad) - parseFloat(totalmes)
-        if(total != 0)
+        if(total > 0)
         {
             Swal.fire(
               'Error',
-              'La distribucion de la meta es diferente a la cantidad total de la meta',
+              'La distribucion de la meta es menor a la cantidad total de la meta',
               'error'
             )
         }
-        else{   
+        else if(total < 0)
+        {
+            Swal.fire(
+              'Error',
+              'La distribucion de la meta es mayor a la cantidad total de la meta',
+              'error'
+            )
+        }
+        else if(total == 0){   
             $("#formulario-ae").submit()
         }
     })

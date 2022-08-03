@@ -94,10 +94,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => ActionColumn::className(),
+                'header'=>"Acciones",
                 'template' => '{view}{update}{delete}  {pdf}',
                 'buttons' => [
                     'pdf' => function($url, $model){
-                        return Html::a('', ['pdf', 'id_plan' => $model->id_plan],['class'=>'glyphicon glyphicon-print	
+                        return Html::a('', ['pdf', 'id_plan' => $model->id_plan],['class'=>'fa fa-print	
                         ']);
                     }
                 ]

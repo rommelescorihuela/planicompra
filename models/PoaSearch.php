@@ -41,7 +41,7 @@ class PoaSearch extends Poa
      */
     public function search($params)
     {
-        $query = Poa::find()->orderBy(['id_tipo' => SORT_DESC,'idpoa' => SORT_DESC]);
+        $query = Poa::find()->orderBy(['id_tipo' => SORT_ASC,'idpoa' => SORT_DESC]);
 
         // add conditions that should always apply here
 

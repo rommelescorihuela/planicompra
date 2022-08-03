@@ -95,7 +95,26 @@ class BasecalculoController extends Controller
      */
     public function actionCreate()
     {
+
+        if (Yii::$app->user->identity->id_perfil == 1) {
+            $searchModel = new BasecalculoSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
+        } else{
+            $searchModel = new BasecalculoSearch();
+            $searchModel->id_gerencia = Yii::$app->user->identity->id_gerencia;
+            $dataProvider = $searchModel->search($this->request->queryParams);
+        }  
+
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        $session = Yii::$app->session;
+        $session->open();
+        $session['query_params'] = json_encode(Yii::$app->request->queryParams);
+        $session->close();
+
+
         $model = new BaseCalculo();
+        $flag = 'create';
 
         $model->id_gerencia = Yii::$app->user->identity->id_gerencia;
         $model->id_usuario = Yii::$app->user->identity->id;
@@ -126,6 +145,10 @@ class BasecalculoController extends Controller
             'model' => $model,
             'lista_tipo' =>$lista_tipo,
             'lista_producto' =>$lista_producto,
+            'flag' => $flag,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+
         ]);
     }
 
@@ -138,7 +161,26 @@ class BasecalculoController extends Controller
      */
     public function actionUpdate($id)
     {
+
+        if (Yii::$app->user->identity->id_perfil == 1) {
+            $searchModel = new BasecalculoSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
+        } else{
+            $searchModel = new BasecalculoSearch();
+            $searchModel->id_gerencia = Yii::$app->user->identity->id_gerencia;
+            $dataProvider = $searchModel->search($this->request->queryParams);
+        }  
+
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        $session = Yii::$app->session;
+        $session->open();
+        $session['query_params'] = json_encode(Yii::$app->request->queryParams);
+        $session->close();
+
+        
         $model = $this->findModel($id);
+        $flag = 'update';
 
         if (Yii::$app->user->identity->id_perfil == 1)  {
             $tipo = Tipo::find()->orderBy('tipo')->all();
@@ -159,6 +201,9 @@ class BasecalculoController extends Controller
             'model' => $model,
             'lista_tipo' =>$lista_tipo,
             'lista_producto' =>$lista_producto,
+            'flag' => $flag,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

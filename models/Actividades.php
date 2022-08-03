@@ -66,10 +66,10 @@ class Actividades extends \yii\db\ActiveRecord
     {
         return [
             'idactividad' => 'Idactividad',
-            'idaccionespecifica' => 'Idaccionespecifica',
-            'descripcion' => 'Descripcion',
-            'id_poa' => 'Id Poa',
-            'id_tipo' => 'Id Tipo',
+            'idaccionespecifica' => 'Accion Especifica',
+            'descripcion' => 'Nombre de la Actividad',
+            'id_poa' => 'Proyecto y/o Acción Centralizada',
+            'id_tipo' => 'Categoría Presupuestaria',
             'id_gerencia' => 'Id Gerencia',
             'unidadmedida' => 'Unidadmedida',
             'enero' => 'Enero',

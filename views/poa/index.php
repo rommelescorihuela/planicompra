@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
             [
                 'class' => ActionColumn::className(),
-                'template' => '{view}{update}',  
+                'template' => '{view}{update}{delete}',  
                 'header'=>"Acciones",
             ],
         ]; 

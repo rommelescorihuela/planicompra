@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $gridColumns = [
     ['class' => 'yii\grid\SerialColumn'],
     [
-        'label' => 'Categoria',
+        'label' => 'Categoría Presupuestaria',
         'attribute' => 'id_tipo',
         'group' => true,
         'filter' => Select2::widget([
@@ -47,7 +47,7 @@ $gridColumns = [
         'value' =>'tipo.tipo',
     ],
     [
-        'label' => 'Proyecto o Acción Centralizada',
+        'label' => 'Proyecto y/o Acción Centralizada',
         'attribute' => 'id_poa',
         'filter' => Select2::widget([
             'model' =>  $searchModel,
@@ -102,7 +102,8 @@ $gridColumns = [
     ],
     [
         'class' => ActionColumn::className(),
-        'template' => '{view}{update}',
+        'template' => '{view}{update}{delete}',
+        'header'=>"Acciones",
         
     ],
 ];
