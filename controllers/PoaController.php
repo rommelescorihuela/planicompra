@@ -145,9 +145,9 @@ class PoaController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idpoa)
+    public function actionDelete($id)
     {
-       $model= $this->findModel($idpoa);
+       $model= $this->findModel($id);
        $model->idvisibilidad= 2;
         if ($model->save()) {
             return $this->redirect(['index']);

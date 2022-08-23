@@ -86,7 +86,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => ActionColumn::className(),
-                'template' => '{view}{update}',
+                'template' => '{view}{update}{assigment}',
+                'buttons'=>[
+                    'assigment'=>function ($url, $model) {
+                        return Html::a('<i class="fa fa-people-arrows"></i>', ['admin/assignment/view', 'id' => $model->id]);
+                    },
+                ],
             ],
         ],
     ]); ?>

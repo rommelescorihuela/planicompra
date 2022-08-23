@@ -42,7 +42,7 @@ class Gerencia extends \yii\db\ActiveRecord
     {
         return [
             'id_gerencia' => 'Id Gerencia',
-            'gerencia' => 'Dependencia',
+            'gerencia' => 'Unidad Ejecutora',
             'mostrar' => 'Mostrar',
         ];
     }

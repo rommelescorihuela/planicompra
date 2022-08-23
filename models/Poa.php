@@ -56,7 +56,7 @@ class Poa extends \yii\db\ActiveRecord
     {
         return [
             'idpoa' => 'Idpoa',
-            'descripcion' => 'Proyecto y/o Acción Centralizada',
+            'descripcion' => 'Proyecto',
             'objetivo' => 'Objetivo',
             'monto_asignado' => 'Monto Asignado',
             'nombre_apellido' => 'Nombre y Apellido',

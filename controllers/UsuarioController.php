@@ -83,7 +83,7 @@ class UsuarioController extends Controller
             $model->password = $hash;                                               
             if ($model->save()) {  
                 $auth = \Yii::$app->authManager;
-                $authorRole = $auth->getRole('administrador');
+                $authorRole = $auth->getRole('Administrador');
                 $auth->assign($authorRole, $model->id);
                 //echo "<br>Se ha creado el permiso";
             } else {

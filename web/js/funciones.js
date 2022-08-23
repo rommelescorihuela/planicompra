@@ -204,6 +204,15 @@ $( document ).ready(function() {
         alert("Limit reached");
     });
 
+    $("#poa-id_tipo").on("change",function(){
+        console.log($("#poa-id_tipo").val());
+        if ($("#poa-id_tipo").val() == 1){
+            $("#proyecto").html("Hello World");
+        }
+        else if ($("#poa-id_tipo").val() == 2){
+            $("#proyecto").html("hhjjj");
+        }
+    })
 
 });
 function numberWithCommas(x) {
