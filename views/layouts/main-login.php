@@ -20,7 +20,7 @@ $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionic
     <?php $this->registerCsrfMetaTags() ?>
     <?php $this->head() ?>
 </head>
-<body class="hold-transition login-page" style="background-image: url('img/bandera.jpg');background-size: cover; background-position: center; ">
+<body class="hold-transition login-page" style="background-image: url('<?=Yii::$app->homeUrl?>/../img/bandera.jpg');background-size: cover; background-position: center; ">
 <?php  $this->beginBody() ?>
 <div class="login-box">
     <div class="login-logo">

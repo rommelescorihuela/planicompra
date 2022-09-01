@@ -220,3 +220,11 @@ function numberWithCommas(x) {
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return parts.join(",");
 }
+
+function validar(data){
+    var campo =  data.id.split("-");
+    var campototal = campo[0]+'-'+campo[1]+'-total';
+    total = $('#'+campototal).val();
+    console.log(total);
+    console.log(data.id);
+}

@@ -67,13 +67,16 @@ class PoaSearch extends Poa
             'idpoa' => $this->idpoa,
             'monto_asignado' => $this->monto_asignado,
             'id_tipo' => $this->id_tipo,
-            'idvisibilidad' => $this->idvisibilidad,
+            //'idvisibilidad' => NULL,
             'id_gerencia' => $this->id_gerencia,
+
         ]);
 
         $query->andFilterWhere(['ilike', 'descripcion', $this->descripcion])
             ->andFilterWhere(['ilike', 'objetivo', $this->objetivo])
-            ->andFilterWhere(['ilike', 'nombre_apellido', $this->nombre_apellido]);
+            ->andFilterWhere(['ilike', 'nombre_apellido', $this->nombre_apellido])
+            ->andFilterWhere(['=', 'idvisibilidad', null]);
+
 
         return $dataProvider;
     }

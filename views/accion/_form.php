@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use kartik\date\DatePicker;
 use kartik\select2\Select2;
 use app\models\Poa;
+use app\models\Tipo;
 use yii\helpers\ArrayHelper;
 
 
@@ -27,7 +28,7 @@ use yii\helpers\ArrayHelper;
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <?= $form->field($model, 'id_tipo')->dropDownList($lista_tipo, ['id'=>'id_tipo', 'prompt' => 'Seleccionar'])->label('Categoría Presupuestaria'); ?>
+                            <?= $form->field($model, 'id_tipo')->dropDownList(ArrayHelper::map(Tipo::find()->orderBy('tipo')->where(['id_tipo' => 2])->all(), 'id_tipo', 'tipo'), ['id'=>'id_tipo', 'prompt' => 'Seleccionar'])->label('Categoría Presupuestaria'); ?>
                         </div>
         
                         <div class="col-md-3">

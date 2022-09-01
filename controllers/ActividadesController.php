@@ -250,7 +250,9 @@ class ActividadesController extends Controller
                     }
                 }
                 // Shows how you can preselect a value
-                return ['output' => $out, 'selected' => $selected];
+                //return ['output' => $out, 'selected' => $selected];
+                return ['output' => $out, 'selected' => ''];
+
             }
         }else{
         $list = Poa::find()->Where(['id_tipo' => $id])->asArray()->all();
@@ -264,7 +266,8 @@ class ActividadesController extends Controller
                     }
                 }
                 // Shows how you can preselect a value
-                return ['output' => $out, 'selected' => $selected];
+                //return ['output' => $out, 'selected' => $selected];
+                return ['output' => $out, 'selected' => ''];
             }
         }
         return ['output' => '', 'selected' => ''];
@@ -286,7 +289,7 @@ class ActividadesController extends Controller
                     }
                 }
                 // Shows how you can preselect a value
-                return ['output' => $out, 'selected' => $selected];
+                return ['output' => $out, 'selected' => ''];
             }
         }
         return ['output' => '', 'selected' => ''];

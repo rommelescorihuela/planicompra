@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
+use app\models\Tipo;
 
 
 /* @var $this yii\web\View */
@@ -20,15 +22,15 @@ use kartik\select2\Select2;
                 </div>
                 <div class="card-body">
 
-                    <?= $form->field($model, 'id_tipo')->dropDownList($listatipo, ['prompt' => 'Seleccionar']) ?>
+                    <?= $form->field($model, 'id_tipo')->dropDownList(ArrayHelper::map(Tipo::find()->orderBy('tipo')->where(['id_tipo' => 2])->all(), 'id_tipo', 'tipo'), ['id'=>'id_tipo', 'prompt' => 'Seleccionar'])->label('Categoría Presupuestaria'); ?>
 
-                    <div id="proyecto"></div>
+                    <?= $form->field($model, 'descripcion')->textarea() ?>
 
                     <?= $form->field($model, 'objetivo')->textarea() ?>
 
                     <?= $form->field($model, 'nombre_apellido')->textInput(['ReadOnly'=>true]) ?>
 
-
+                    <?= $form->field($model, 'periodo')->dropDownList([2023=>2023,2023=>2023,2025=>2025,2026=>2026,2027=>2027,2028=>2028,2029=>2029,2030=>2030,2031=>2031,2032=>2032], ['prompt' => 'Seleccionar'])->label('Periodo (año)'); ?>
 
                     <div class="form-group"></br>
                         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

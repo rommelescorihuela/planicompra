@@ -201,7 +201,8 @@ class AccionController extends Controller
                     }
                 }
                 // Shows how you can preselect a value
-                return ['output' => $out, 'selected' => $selected];
+                //return ['output' => $out, 'selected' => $selected];
+                return ['output' => $out, 'selected' => ''];
             }
         }
         return ['output' => '', 'selected' => ''];

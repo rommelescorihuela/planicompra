@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
  * @property int|null $id_tipo
  * @property int|null $idvisibilidad
  * @property int|null $id_gerencia
- *
+ * @property string|null $periodo
  * @property Accion[] $accions
  * @property Basecalculo[] $basecalculos
  * @property Gerencia $gerencia
@@ -39,7 +39,7 @@ class Poa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descripcion', 'objetivo', 'nombre_apellido'], 'string'],
+            [['descripcion', 'objetivo', 'nombre_apellido','periodo'], 'string'],
             [['monto_asignado'], 'number'],
             [['id_tipo', 'idvisibilidad', 'id_gerencia'], 'default', 'value' => null],
             [['id_tipo', 'idvisibilidad', 'id_gerencia'], 'integer'],

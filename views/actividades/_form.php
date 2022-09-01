@@ -117,7 +117,7 @@ use app\models\Accion;
 
                                         <div class="row">
                                                             <div class="col-sm-2">
-                                                                <?= $form->field($modelAddress, "[{$i}]enero")->textInput(['maxlength' => true]) ?>
+                                                                <?= $form->field($modelAddress, "[{$i}]enero")->textInput(['maxlength' => true, 'onblur'=>'validar(this)']) ?>
                                                             </div>
                                                             <div class="col-sm-2">
                                                                 <?= $form->field($modelAddress, "[{$i}]febrero")->textInput(['maxlength' => true]) ?>
