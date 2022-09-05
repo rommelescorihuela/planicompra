@@ -30,7 +30,7 @@ use app\models\Tipo;
 
                     <?= $form->field($model, 'nombre_apellido')->textInput(['ReadOnly'=>true]) ?>
 
-                    <?= $form->field($model, 'periodo')->dropDownList([2023=>2023,2023=>2023,2025=>2025,2026=>2026,2027=>2027,2028=>2028,2029=>2029,2030=>2030,2031=>2031,2032=>2032], ['prompt' => 'Seleccionar'])->label('Periodo (año)'); ?>
+                    <?= $form->field($model, 'periodo')->dropDownList([2023=>2023,2024=>2024,2025=>2025,2026=>2026,2027=>2027,2028=>2028,2029=>2029,2030=>2030,2031=>2031,2032=>2032], ['prompt' => 'Seleccionar'])->label('Periodo (año)'); ?>
 
                     <div class="form-group"></br>
                         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

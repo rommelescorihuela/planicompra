@@ -1,16 +1,5 @@
 $( document ).ready(function() {
-    console.log( "ready!" );
 
-    jQuery(function ($) {
-
-        //$("[data-dependency]").dependsOn()
-    
-        /*$("[data-dependency]").each(function () {
-            $(this).dependsOn()
-        });*/
-    
-    })
-    
      $("#basecalculo-cantidad").blur(function(){
         costo=$("#basecalculo-costo").val();
         costo1=costo.replace(/\./g, '');
