@@ -224,7 +224,20 @@ function numberWithCommas(x) {
 function validar(data){
     var campo =  data.id.split("-");
     var campototal = campo[0]+'-'+campo[1]+'-total';
+    var enero =campo[0]+'-'+campo[1]+'-enero';
+    var febrero =campo[0]+'-'+campo[1]+'-febrero';
+    var marzo =campo[0]+'-'+campo[1]+'-marzo';
+    var abril =campo[0]+'-'+campo[1]+'-abril';
+    var mayo =campo[0]+'-'+campo[1]+'-mayo';
+    var junio =campo[0]+'-'+campo[1]+'-junio';
+    var julio =campo[0]+'-'+campo[1]+'-julio';
+    var agosto =campo[0]+'-'+campo[1]+'-agosto';
+    var septiembre =campo[0]+'-'+campo[1]+'-septiembre';
+    var octubre =campo[0]+'-'+campo[1]+'-octubre';
+    var noviembre =campo[0]+'-'+campo[1]+'-noviembre';
+    var diciembre =campo[0]+'-'+campo[1]+'-diciembre';
     total = $('#'+campototal).val();
+    mestotal = parseInt($('#'+enero).val())+parseInt($('#'+febrero).val())+parseInt($('#'+marzo).val())+parseInt($('#'+abril).val())+parseInt($('#'+mayo).val())+parseInt($('#'+junio).val())+parseInt($('#'+julio).val())+parseInt($('#'+agosto).val())+parseInt($('#'+septiembre).val())+parseInt($('#'+octubre).val())+parseInt($('#'+noviembre).val())+parseInt($('#'+diciembre).val());
     console.log(total);
-    console.log(data.id);
+    console.log(mestotal);
 }
