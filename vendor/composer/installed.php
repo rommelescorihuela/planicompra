@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '35704101f95f433b06884c70f20cd2c633cdb7fb',
+        'reference' => '02325cf12b9b0d70eaf22c5393fb1a4efcf7313f',
         'name' => 'yiisoft/yii2-app-basic',
         'dev' => true,
     ),
@@ -1252,7 +1252,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '35704101f95f433b06884c70f20cd2c633cdb7fb',
+            'reference' => '02325cf12b9b0d70eaf22c5393fb1a4efcf7313f',
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-bootstrap' => array(

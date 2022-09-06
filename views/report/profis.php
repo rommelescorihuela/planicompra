@@ -31,33 +31,30 @@ $year = [
     <div class="row">
         <div class="col-md-4">
             <?php echo $form->field($model, 'year')->widget(Select2::classname(), [
-                'data' => $year,
-                'options' => ['id'=>'id_tipo','placeholder' => 'Select a state ...'],
-                'pluginOptions' => [
-                'allowClear' => true
-                ],
-            ]);?>
+                    'data' => $year,
+                    'options' => ['placeholder' => 'Seleccione...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+            ])?>
         </div>
         <div class="col-md-4">
-            <?php /*echo $form->field($model, 'project')->widget(DepDrop::classname(), [
+            <?php echo $form->field($model, 'project')->widget(DepDrop::classname(), [
                     'pluginOptions'=>[
                     'depends'=>['reportform-year'],
-                    'placeholder'=>'Select...',
+                    'placeholder'=>'Seleccione...',
                     'url'=>Url::to(['/poa/proyear'])
                 ]
-            ]); */?>
-            <?= $form->field($model, 'project')->widget(DepDrop::classname(), [
-                            'type' => DepDrop::TYPE_SELECT2,
-                            'options' => ['id' => 'project', 'placeholder' => 'Seleccione...'],
-                            'select2Options' => ['pluginOptions' => ['allowClear' => true]],
-                            'pluginOptions'=>[
-                                'depends'=>['id_tipo'],
-                                'url' => Url::to(['/poa/proyear']),
-                                ]
-                            ])->label('Accion Centralizada') ?>
+            ]); ?>
         </div>
         <div class="col-md-4">
-            <?= $form->field($model, 'unity') ?>
+            <?php echo $form->field($model, 'unity')->widget(Select2::classname(), [
+                    'data' => $unidad,
+                    'options' => ['placeholder' => 'Seleccione...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+            ])?>
         </div>
     </div>
     

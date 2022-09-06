@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Crear Formulacion', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Formulacion1', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
         
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -70,10 +70,16 @@ $this->params['breadcrumbs'][] = $this->title;
     
             [
                 'class' => ActionColumn::className(),
-                'template' => '{view}{update}{delete}',  
+                'template' => '{view}{update}{delete} {report}',
+                'buttons' => [
+                    'report' => function ($url, $model, $key) {
+                        return Html::a('<i class="far fa-file"></i>', ['/report/profipro', 'id'=>$model->idpoa]);
+                    },
+                ],
                 'header'=>"Acciones",
             ],
         ]; 
+
         echo GridView::widget([
         'id' => 'kv-grid-demo',
         'dataProvider' => $dataProvider,
