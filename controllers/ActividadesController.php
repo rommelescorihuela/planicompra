@@ -151,7 +151,8 @@ class ActividadesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelsUnidadmedida = $model->unidadMedidas;
+        $modelsUnidadmedida = Unidadmedida::find()->Where(['id_actividad' =>$model->idactividad])->all();
+        
 
         if (Yii::$app->user->identity->id_perfil == 1)  {
             $tipo = Tipo::find()->orderBy('tipo')->all();

@@ -42,7 +42,7 @@ use yii\helpers\ArrayHelper;
                                 'url' => Url::to(['poas']),
                                 'params' => ['input-type-1', 'input-type-2']
                                 ]
-                            ])->label('Accion Centralizada') ?>
+                            ]) ?>
                         </div>
                         <div class="col-md-3">
                             <?= $form->field($model, 'idgerencia')->widget(Select2::classname(), [
