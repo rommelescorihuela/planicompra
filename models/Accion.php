@@ -74,7 +74,7 @@ class Accion extends \yii\db\ActiveRecord
         return [
             'id_accion' => 'Id Accion',
             'descripcion' => 'Nombre de Accion Especifica',
-            'idpoa' => 'Proyecto y/o Acción Centralizada',
+            'idpoa' => 'Denominación del Proyecto y/o Acción Centralizada',
             'idgerencia' => 'Unidad Ejecutora',
             'id_tipo' => 'Categoría Presupuestaria',
             'poderacion' => 'Poderacion',
@@ -151,15 +151,15 @@ class Accion extends \yii\db\ActiveRecord
 
     public static function Lista_poa()
     {
-    if (Yii::$app->user->identity->id_perfil == 1) {
-            $poa=Poa::find()->orderBy('descripcion')->all();
+        if (Yii::$app->user->identity->id_perfil == 1) {
+            $poa=Poa::find()->where(['idvisibilidad' => null])->orderBy('descripcion')->all();
             $listapoa=ArrayHelper::map($poa, 'idpoa', 'descripcion');
             return $listapoa;
-    } else {
-            $poa=Poa::find()->where(['id_gerencia' => Yii::$app->user->identity->id_gerencia])->orderBy('descripcion')->all();
+        } else {
+            $poa=Poa::find()->where(['idvisibilidad' => null,'id_gerencia' => Yii::$app->user->identity->id_gerencia])->orderBy('descripcion')->all();
             $listapoa=ArrayHelper::map($poa, 'idpoa', 'descripcion');
             return $listapoa;
-    }
+        }
     }
     public static function Lista_gerenci()
     {

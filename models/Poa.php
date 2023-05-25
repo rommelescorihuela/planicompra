@@ -119,13 +119,13 @@ class Poa extends \yii\db\ActiveRecord
 
     public static function Lista_tipo()
     {
-        if (Yii::$app->user->identity->id_perfil == 1)  {
+        //if (Yii::$app->user->identity->id_perfil == 1)  {
             $tipo = Tipo::find()->orderBy('tipo')->all();
             $listatipo = ArrayHelper::map($tipo, 'id_tipo', 'tipo');
-            }else{
+            /*}else{
             $tipo = Tipo::find()->Where(['id_tipo'=> 2])->orderBy('tipo')->all();
             $listatipo = ArrayHelper::map($tipo, 'id_tipo', 'tipo');
-        }
+        }*/
         return $listatipo;
     }
 }

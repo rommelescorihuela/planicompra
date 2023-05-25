@@ -49,7 +49,7 @@ use kartik\select2\Select2;
                             ]) ?>
                         </div>
                         <div class="col-md-2">
-                            <?= $form->field($model, 'perfil')->widget(Select2::classname(), [
+                            <?= $form->field($model, 'id_perfil')->widget(Select2::classname(), [
                                 'data' => \yii\helpers\ArrayHelper::map(\app\models\Perfil::find()->orderBy('id_perfil')->asArray()->all(), 'id_perfil', 'descripcion'),
                                 'options' => ['placeholder' => 'Seleccionar...'],
                                 'pluginOptions' => [

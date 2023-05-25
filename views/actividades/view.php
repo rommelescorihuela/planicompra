@@ -24,14 +24,20 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+                <table class="table table-hover">
                     <tbody>
                         <tr>
-                            <td colspan="1"><b>Categoría Presupuestaria:</b> <?= $model->tipo->tipo?></td>
-                            <td colspan="1"><b>Proyecto y/o Acción Centralizada:</b> <?=$model->poa->descripcion?></td>
-                            <td colspan="2"><b>Accion Especifica:</b> <?=$model->descripcion?></td>
-                            <td colspan="2"><b>Unidad de Ejecucion:</b> <?=$model->gerencia->gerencia?></td>
+                            <td ><b>Categoría Presupuestaria:</b> <?= $model->tipo->tipo?></td>
+                            <td ><b>Proyecto y/o Acción Centralizada:</b> <?=$model->poa->descripcion?></td>
                         </tr>
+                        <tr>
+                            <td ><b>Accion Especifica:</b> <?=$model->descripcion?></td>
+                            <td ><b>Unidad Ejecutora:</b> <?=$model->gerencia->gerencia?></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-hover">
+                    <tbody>
                         <?php foreach($unidadmedida as $unidad):?>
                         <tr>
                             <td colspan="6"><b>Unidad de Medida:</b> <?= $unidad['unidadmedida']?></td>
@@ -40,6 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td><b>Enero:</b> <?=$unidad['enero']?></td>
                             <td><b>Febrero:</b> <?=$unidad['febrero']?></td>
                             <td><b>Marzo:</b> <?=$unidad['marzo']?></td>
+                        </tr>
+                        <tr>
                             <td><b>Abril:</b> <?=$unidad['abril']?></td>
                             <td><b>Mayo:</b> <?=$unidad['mayo']?></td>
                             <td><b>Junio:</b> <?=$unidad['junio']?></td>
@@ -48,6 +56,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td><b>Julio:</b> <?=$unidad['julio']?></td>
                             <td><b>Agosto:</b> <?=$unidad['agosto']?></td>
                             <td><b>Septiembre:</b> <?=$unidad['septiembre']?></td>
+                        </tr>
+                        <tr>
                             <td><b>Octubre:</b> <?=$unidad['octubre']?></td>
                             <td><b>Noviembre:</b> <?=$unidad['noviembre']?></td>
                             <td><b>Diciembre:</b> <?=$unidad['diciembre']?></td>

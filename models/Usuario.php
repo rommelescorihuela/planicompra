@@ -42,7 +42,8 @@ class Usuario extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['id_perfil', 'id_gerencia', 'cedula', 'status'], 'default', 'value' => null],
+            [['id_perfil','username', 'password', 'nombre','apellido', 'id_gerencia', 'cedula','cargo', 'correo', 'status'], 'required'],
+            [['id_gerencia', 'cedula', 'status'], 'default', 'value' => null],
             [['id_perfil', 'id_gerencia', 'cedula', 'status'], 'integer'],
             [['username', 'password', 'cargo', 'correo', 'auth_key'], 'string', 'max' => 100],
             [['nombre', 'apellido'], 'string', 'max' => 50],

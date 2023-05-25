@@ -31,7 +31,7 @@ use yii\helpers\ArrayHelper;
                             <?= $form->field($model, 'id_tipo')->dropDownList(ArrayHelper::map(Tipo::find()->orderBy('tipo')->where(['id_tipo' => 2])->all(), 'id_tipo', 'tipo'), ['id'=>'id_tipo', 'prompt' => 'Seleccionar'])->label('Categoría Presupuestaria'); ?>
                         </div>
         
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <?= $form->field($model, 'idpoa')->widget(DepDrop::classname(), [
                             'type' => DepDrop::TYPE_SELECT2,
                             'data' => ArrayHelper::map(Poa::find()->orderBy('idpoa')->all(), 'idpoa', 'descripcion'),
@@ -53,7 +53,7 @@ use yii\helpers\ArrayHelper;
                                 ],
                             ])->label('Unidad ejecutora') ?>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <?= $form->field($model, 'unidadmedida')->textInput()->label('Unidad de medida') ?>
                         </div>
                     </div>

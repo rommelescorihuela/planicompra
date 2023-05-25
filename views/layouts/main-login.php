@@ -24,7 +24,7 @@ $this->registerCssFile('https://code.ionicframework.com/ionicons/2.0.1/css/ionic
 <?php  $this->beginBody() ?>
 <div class="login-box">
     <div class="login-logo">
-        <a href="<?=Yii::$app->homeUrl?>"><b style="color: white;"><h1>SFPOA</h1></b></a>
+        <a href="<?=Yii::$app->homeUrl?>"><b style="color: black;"><h1>SISFAPOAIP</h1></b></a>
     </div>
     <!-- /.login-logo -->
 

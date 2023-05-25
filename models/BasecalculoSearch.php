@@ -42,7 +42,9 @@ class BasecalculoSearch extends Basecalculo
      */
     public function search($params)
     {
-        $query = Basecalculo::find()->orderBy(['id_poa' => SORT_DESC,'id_plan' => SORT_DESC]);
+        $query = Basecalculo::find()
+        ->innerjoin('poa','poa.idpoa = basecalculo.id_poa')
+        ->orderBy(['id_poa' => SORT_DESC,'id_plan' => SORT_DESC]);
 
         // add conditions that should always apply here
 
@@ -65,43 +67,45 @@ class BasecalculoSearch extends Basecalculo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_plan' => $this->id_plan,
-            'id_poa' => $this->id_poa,
-            'id_accion' => $this->id_accion,
-            'id_actividad' => $this->id_actividad,
-            'id_producto' => $this->id_producto,
-            'id_medida' => $this->id_medida,
-            'cantidad' => $this->cantidad,
-            'monto_total' => $this->monto_total,
-            'id_gerencia' => $this->id_gerencia,
-            'fecha' => $this->fecha,
-            'id_partida' => $this->id_partida,
-            'id_generica' => $this->id_generica,
-            'id_especifico' => $this->id_especifico,
-            'costo' => $this->costo,
-            'id_usuario' => $this->id_usuario,
-            'iva' => $this->iva,
-            'total_iva' => $this->total_iva,
-            'iva_monto' => $this->iva_monto,
-            'fecha_h' => $this->fecha_h,
-            'id_moneda' => $this->id_moneda,
-            'n_dias' => $this->n_dias,
-            'fecha_i' => $this->fecha_i,
-            'fecha_f' => $this->fecha_f,
-            'estatus' => $this->estatus,
-            'enero' => $this->enero,
-            'febrero' => $this->febrero,
-            'marzo' => $this->marzo,
-            'abril' => $this->abril,
-            'mayo' => $this->mayo,
-            'junio' => $this->junio,
-            'julio' => $this->julio,
-            'agosto' => $this->agosto,
-            'septiembre' => $this->septiembre,
-            'octubre' => $this->octubre,
-            'noviembre' => $this->noviembre,
-            'diciembre' => $this->diciembre,
+            'basecalculo.id_plan' => $this->id_plan,
+            'basecalculo.id_poa' => $this->id_poa,
+            'basecalculo.id_accion' => $this->id_accion,
+            'basecalculo.id_actividad' => $this->id_actividad,
+            'basecalculo.id_producto' => $this->id_producto,
+            'basecalculo.id_medida' => $this->id_medida,
+            'basecalculo.cantidad' => $this->cantidad,
+            'basecalculo.monto_total' => $this->monto_total,
+            'basecalculo.id_gerencia' => $this->id_gerencia,
+            'basecalculo.fecha' => $this->fecha,
+            'basecalculo.id_partida' => $this->id_partida,
+            'basecalculo.id_generica' => $this->id_generica,
+            'basecalculo.id_especifico' => $this->id_especifico,
+            'basecalculo.costo' => $this->costo,
+            'basecalculo.id_usuario' => $this->id_usuario,
+            'basecalculo.iva' => $this->iva,
+            'basecalculo.total_iva' => $this->total_iva,
+            'basecalculo.iva_monto' => $this->iva_monto,
+            'basecalculo.fecha_h' => $this->fecha_h,
+            'basecalculo.id_moneda' => $this->id_moneda,
+            'basecalculo.n_dias' => $this->n_dias,
+            'basecalculo.fecha_i' => $this->fecha_i,
+            'basecalculo.fecha_f' => $this->fecha_f,
+            'basecalculo.estatus' => $this->estatus,
+            'basecalculo.enero' => $this->enero,
+            'basecalculo.febrero' => $this->febrero,
+            'basecalculo.marzo' => $this->marzo,
+            'basecalculo.abril' => $this->abril,
+            'basecalculo.mayo' => $this->mayo,
+            'basecalculo.junio' => $this->junio,
+            'basecalculo.julio' => $this->julio,
+            'basecalculo.agosto' => $this->agosto,
+            'basecalculo.septiembre' => $this->septiembre,
+            'basecalculo.octubre' => $this->octubre,
+            'basecalculo.noviembre' => $this->noviembre,
+            'basecalculo.diciembre' => $this->diciembre,
         ]);
+
+        $query->andWhere(['poa.idvisibilidad' => null]);
 
         return $dataProvider;
     }
