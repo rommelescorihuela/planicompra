@@ -67,11 +67,14 @@ class ReportController extends Controller
                 '(unidad_medida.abril+unidad_medida.mayo+unidad_medida.junio) as t2_act',
                 '(unidad_medida.julio+unidad_medida.agosto+unidad_medida.septiembre) as t3_act',
                 '(unidad_medida.octubre+unidad_medida.noviembre+unidad_medida.diciembre) as t4_act',
+                'requerimiento.producto as bien'
             ])
             ->from('poa')
             ->innerjoin('accion','accion.idpoa = poa.idpoa')
             ->leftjoin('actividades','actividades.idaccionespecifica = accion.id_accion')
             ->leftjoin('unidad_medida','unidad_medida.id_actividad = actividades.idactividad')
+            ->leftjoin('basecalculo','basecalculo.id_actividad = actividades.idactividad')
+            ->leftjoin('requerimiento','requerimiento.idproducto = basecalculo.id_producto')
             ->where(['poa.idpoa' => $id])
             ->all();
         $consulta1 = (new \yii\db\Query())
@@ -339,7 +342,7 @@ $spreadsheet->getActiveSheet()
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A'.$i, $resultado['accion_especifica'])
                 ->setCellValue('B'.$i, "%")
-                ->setCellValue('C'.$i, "Resultado bien o servicio")
+                ->setCellValue('C'.$i, $resultado['bien'])
                 ->setCellValue('D'.$i, $fecha_formateada_inicio)
                 ->setCellValue('E'.$i, $fecha_formateada_fin)
                 ->setCellValue('F'.$i, $resultado['unidad_medida_accion'])
