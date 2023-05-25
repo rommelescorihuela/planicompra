@@ -6,7 +6,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
     <div class="site-index">
 
         <div class="jumbotron text-center bg-transparent">
-            <h1 class="display-4"><b> Bienvenido al Sistema de Formulacion del Plan Operativo Anual (SFPOA)</b></h1>
+            <h1 class="display-4"><b> Bienvenido al Sistema para la Formulación del Anteproyecto del Plan Operativo Anual Institucional y Presupuesto (SISFAPOAIP).</b></h1>
         </div>
 
         <div class="body-content">

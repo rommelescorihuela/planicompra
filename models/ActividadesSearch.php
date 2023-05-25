@@ -41,7 +41,9 @@ class ActividadesSearch extends Actividades
      */
     public function search($params)
     {
-        $query = Actividades::find()->orderBy(['idaccionespecifica' => SORT_DESC]);
+        $query = Actividades::find()
+        ->innerjoin('poa','poa.idpoa = actividades.id_poa')
+        ->orderBy(['idaccionespecifica' => SORT_DESC]);
         
         
 
@@ -66,15 +68,17 @@ class ActividadesSearch extends Actividades
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'idactividad' => $this->idactividad,
-            'idaccionespecifica' => $this->idaccionespecifica,
-            'id_poa' => $this->id_poa,
-            'id_tipo' => $this->id_tipo,
-            'id_gerencia' => $this->id_gerencia,
+            'actividades.idactividad' => $this->idactividad,
+            'actividades.idaccionespecifica' => $this->idaccionespecifica,
+            'actividades.id_poa' => $this->id_poa,
+            'actividades.id_tipo' => $this->id_tipo,
+            'actividades.id_gerencia' => $this->id_gerencia,
 
         ]);
 
-        $query->andFilterWhere(['ilike', 'descripcion', $this->descripcion]);
+        $query->andFilterWhere(['ilike', 'actividades.descripcion', $this->descripcion]);
+
+        $query->andWhere(['poa.idvisibilidad' => null]);
 
         return $dataProvider;
     }

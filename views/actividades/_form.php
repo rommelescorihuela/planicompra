@@ -20,7 +20,7 @@ use app\models\Accion;
                     <h3><?= Html::encode($this->title) ?></h3>
                 </div>
                 <div class="card-body">
-                    <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
+                    <?php $form = ActiveForm::begin(['id' => 'dynamic-form-actividades']); ?>
                     <div class="row">
                         <div class="col-md-3">
                             <?= $form->field($model, 'id_tipo')->dropDownList($lista_tipo, ['id'=>'id_tipo', 'prompt' => 'Seleccionar']); ?>
@@ -64,7 +64,7 @@ use app\models\Accion;
                         'insertButton' => '.add-item', // css class
                         'deleteButton' => '.remove-item', // css class
                         'model' => $modelsAddress[0],
-                        'formId' => 'dynamic-form',
+                        'formId' => 'dynamic-form-actividades',
                         'formFields' => [
                             'unidadmedida',
                             'enero',
@@ -90,7 +90,9 @@ use app\models\Accion;
                         </div>
                         <div class="panel-body">
                             <div class="container-items"><!-- widgetBody -->
+                                <?php $j =0; ?>
                             <?php foreach ($modelsAddress as $i => $modelAddress): ?>
+                                <?php $j++; ?>
                                 <div class="item panel panel-default"><!-- widgetItem -->
                                     <div class="panel-heading">
                                         <h3 class="panel-title pull-left"></h3>
@@ -114,47 +116,90 @@ use app\models\Accion;
                                                 <?= $form->field($modelAddress, "[{$i}]total")->textInput(['maxlength' => true])->label('Total de la meta') ?>
                                             </div>
                                         </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                                <?= $form->field($modelAddress, "[{$i}]enero")->textInput(['maxlength' => true, 'onblur'=>'validar(this)','value'=>0]) ?>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <?= $form->field($modelAddress, "[{$i}]febrero")->textInput(['maxlength' => true,]) ?>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <?= $form->field($modelAddress, "[{$i}]marzo")->textInput(['maxlength' => true]) ?>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <?= $form->field($modelAddress, "[{$i}]abril")->textInput(['maxlength' => true]) ?>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <?= $form->field($modelAddress, "[{$i}]mayo")->textInput(['maxlength' => true,]) ?>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <?= $form->field($modelAddress, "[{$i}]junio")->textInput(['maxlength' => true,]) ?>
-                                            </div>
-                                        </div><!-- .row -->
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                                <?= $form->field($modelAddress, "[{$i}]julio")->textInput(['maxlength' => true,]) ?>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <?= $form->field($modelAddress, "[{$i}]agosto")->textInput(['maxlength' => true,]) ?>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <?= $form->field($modelAddress, "[{$i}]septiembre")->textInput(['maxlength' => true,]) ?>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <?= $form->field($modelAddress, "[{$i}]octubre")->textInput(['maxlength' => true,]) ?>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <?= $form->field($modelAddress, "[{$i}]noviembre")->textInput(['maxlength' => true,]) ?>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <?= $form->field($modelAddress, "[{$i}]diciembre")->textInput(['maxlength' => true,]) ?>
-                                            </div>
-                                        </div><!-- .row -->
+                                        <?php if (! $modelAddress->isNewRecord) :?>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]enero")->textInput(['maxlength' => true, 'onblur'=>'validar(this)']) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]febrero")->textInput(['maxlength' => true,]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]marzo")->textInput(['maxlength' => true]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]abril")->textInput(['maxlength' => true]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]mayo")->textInput(['maxlength' => true,]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]junio")->textInput(['maxlength' => true,]) ?>
+                                                </div>
+                                            </div><!-- .row -->
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]julio")->textInput(['maxlength' => true,]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]agosto")->textInput(['maxlength' => true,]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]septiembre")->textInput(['maxlength' => true,]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]octubre")->textInput(['maxlength' => true,]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]noviembre")->textInput(['maxlength' => true,]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]diciembre")->textInput(['maxlength' => true,]) ?>
+                                                </div>
+                                            </div><!-- .row -->
+                                        <?php else:?>
+                                            
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]enero")->textInput(['maxlength' => true, 'onblur'=>'validar(this)','value' =>0]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]febrero")->textInput(['maxlength' => true,'value' =>0]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]marzo")->textInput(['maxlength' => true,'value' =>0]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]abril")->textInput(['maxlength' => true,'value' =>0]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]mayo")->textInput(['maxlength' => true,'value' =>0]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]junio")->textInput(['maxlength' => true,'value' =>0]) ?>
+                                                </div>
+                                            </div><!-- .row -->
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]julio")->textInput(['maxlength' => true,'value' =>0]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]agosto")->textInput(['maxlength' => true,'value' =>0]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]septiembre")->textInput(['maxlength' => true,'value' =>0]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]octubre")->textInput(['maxlength' => true,'value' =>0]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]noviembre")->textInput(['maxlength' => true,'value' =>0]) ?>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <?= $form->field($modelAddress, "[{$i}]diciembre")->textInput(['maxlength' => true,'value' =>0]) ?>
+                                                </div>
+                                            </div><!-- .row -->
+                                        <?php endif?>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -162,9 +207,12 @@ use app\models\Accion;
                         </div>
                     </div><!-- .panel -->
                     <?php DynamicFormWidget::end(); ?>
-
+                    <div id="miDiv">
+                       <input type="hidden" readonly='readonly' id="miCampo" value=<?php echo $j;?>>
+                    </div>
+                    
                     <div class="form-group">
-                        <?= Html::submitButton('Guardar', ['id'=>'submit-act','class' => 'btn btn-primary']) ?>
+                        <?= Html::Button('Guardar', ['id'=>'submit-act','class' => 'btn btn-primary']) ?>
                     </div>
                 </div>
             </div>

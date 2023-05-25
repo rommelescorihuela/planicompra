@@ -176,12 +176,32 @@ $( document ).ready(function() {
 
     $(".dynamicform_wrapper").on("afterInsert", function(e, item) {
         console.log("afterInsert");
+        console.log(e);
+        console.log(item);
+        var valor = $('#miDiv #miCampo').val();
+        $('#unidadmedida-'+valor+'-enero').val(0);
+        $('#unidadmedida-'+valor+'-febrero').val(0);
+        $('#unidadmedida-'+valor+'-marzo').val(0);
+        $('#unidadmedida-'+valor+'-abril').val(0);
+        $('#unidadmedida-'+valor+'-mayo').val(0);
+        $('#unidadmedida-'+valor+'-junio').val(0);
+        $('#unidadmedida-'+valor+'-julio').val(0);
+        $('#unidadmedida-'+valor+'-agosto').val(0);
+        $('#unidadmedida-'+valor+'-septiembre').val(0);
+        $('#unidadmedida-'+valor+'-octubre').val(0);
+        $('#unidadmedida-'+valor+'-noviembre').val(0);
+        $('#unidadmedida-'+valor+'-diciembre').val(0);
+        var valor = parseFloat(valor) + parseFloat(1);
+        $('#miDiv #miCampo').val(valor);
     });
 
     $(".dynamicform_wrapper").on("beforeDelete", function(e, item) {
-        if (! confirm("Are you sure you want to delete this item?")) {
+        if (! confirm("Esta seguro que desea borrar este elemento?")) {
             return false;
         }
+        var valor = $('#miDiv #miCampo').val();
+        var valor = parseFloat(valor) - parseFloat(1);
+        $('#miDiv #miCampo').val(valor);
         return true;
     });
 
@@ -201,6 +221,48 @@ $( document ).ready(function() {
         else if ($("#poa-id_tipo").val() == 2){
             $("#proyecto").html("hhjjj");
         }
+    })
+
+    $('#submit-act').click(function(){
+        var valor = $('#miDiv #miCampo').val();
+        for (var i = 0; i < valor; i++) {
+            total = $('#unidadmedida-'+i+'-total').val()
+            enero = $('#unidadmedida-'+i+'-enero').val()
+            febrero = $('#unidadmedida-'+i+'-febrero').val()
+            marzo = $('#unidadmedida-'+i+'-marzo').val()
+            abril = $('#unidadmedida-'+i+'-abril').val()
+            mayo = $('#unidadmedida-'+i+'-mayo').val()
+            junio = $('#unidadmedida-'+i+'-junio').val()
+            julio = $('#unidadmedida-'+i+'-julio').val()
+            agosto = $('#unidadmedida-'+i+'-agosto').val()
+            septiembre = $('#unidadmedida-'+i+'-septiembre').val()
+            octubre = $('#unidadmedida-'+i+'-octubre').val()
+            noviembre = $('#unidadmedida-'+i+'-noviembre').val()
+            diciembre = $('#unidadmedida-'+i+'-diciembre').val()
+            totalmes = (parseFloat(enero)+parseFloat(febrero)+parseFloat(marzo)+parseFloat(abril)+parseFloat(mayo)+parseFloat(junio)+parseFloat(julio)+parseFloat(agosto)+parseFloat(septiembre)+parseFloat(octubre)+parseFloat(noviembre)+parseFloat(diciembre))
+            diferencia = parseFloat(total) - parseFloat(totalmes)
+            if(diferencia > 0)
+            {
+                Swal.fire(
+                  'Error',
+                  'La distribucion de la meta:<b> '+$('#unidadmedida-'+i+'-unidadmedida').val()+'</b><br> es <b>menor</b> a la cantidad total de la meta',
+                  'error'
+                )
+                $('#unidadmedida-'+i+'-total').focus()
+                return false;
+            }
+            else if(diferencia < 0)
+            {
+                Swal.fire(
+                  'Error',
+                  'La distribucion de la meta:<b> '+$('#unidadmedida-'+i+'-unidadmedida').val()+'</b><br> es <b>mayor</b> a la cantidad total de la meta',
+                  'error'
+                )
+                $('#unidadmedida-'+i+'-total').focus()
+                return false;
+            } 
+        } 
+        $("#dynamic-form-actividades").submit()
     })
 
 });

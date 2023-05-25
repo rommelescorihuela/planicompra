@@ -43,7 +43,7 @@ class Perfil extends \yii\db\ActiveRecord
     {
         return [
             'id_perfil' => 'Id Perfil',
-            'descripcion' => 'Rol',
+            'descripcion' => 'Perfil',
         ];
     }
 

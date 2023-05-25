@@ -40,7 +40,9 @@ class AccionSearch extends Accion
      */
     public function search($params)
     {
-        $query = Accion::find()->orderBy(['id_accion' => SORT_DESC]);
+        $query = Accion::find()
+        ->innerjoin('poa','poa.idpoa = accion.idpoa')
+        ->orderBy(['id_accion' => SORT_DESC]);
 
 
         // add conditions that should always apply here
@@ -65,13 +67,15 @@ class AccionSearch extends Accion
         // grid filtering conditions
         $query->andFilterWhere([
             'id_accion' => $this->id_accion,
-            'idpoa' => $this->idpoa,
-            'idgerencia' => $this->idgerencia,
-            'id_tipo' => $this->id_tipo,
+            'accion.idpoa' => $this->idpoa,
+            'accion.idgerencia' => $this->idgerencia,
+            'accion.id_tipo' => $this->id_tipo,
 
         ]);
 
-        $query->andFilterWhere(['ilike', 'descripcion', $this->descripcion]);
+        $query->andFilterWhere(['ilike', 'accion.descripcion', $this->descripcion]);
+
+        $query->andWhere(['poa.idvisibilidad' => null]);
 
         return $dataProvider;
     }
