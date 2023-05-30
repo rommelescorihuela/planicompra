@@ -15,6 +15,10 @@ use app\models\Gerencia;
 use app\models\Poa;
 use app\models\Accion;
 use app\models\Actividades;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class ReportController extends Controller
 {
@@ -43,6 +47,7 @@ class ReportController extends Controller
 
     public function actionProfipro($id)
     {
+        $poa_principal = Poa::find()->where(['idpoa' => $id])->one();
 
         $consulta = (new \yii\db\Query())
             ->select([
@@ -93,20 +98,54 @@ class ReportController extends Controller
 // Agregamos el título
 // Cambiamos los títulos de las columnas
 
-$spreadsheet->setActiveSheetIndex(0)->mergeCells('A9:AP9')
-            ->setCellValue('A9', 'ANTEPROYECTO DEL PLAN OPERATIVO ANUAL');
+/*$spreadsheet->setActiveSheetIndex(0)->mergeCells('A9:AP9')
+            ->setCellValue('A9', 'ANTEPROYECTO DEL PLAN OPERATIVO ANUAL');*/
+
+
+
+            
+$spreadsheet->setActiveSheetIndex(0)
+    ->mergeCells('A1:AP4')
+    ->setCellValue('A1', 'FORMULACIÓN DEL ANTEPROYECTO DEL PLAN OPERATIVO ANUAL INSTITUCIONAL Y PRESUPUESTO')
+    ->getStyle('A1:AP4')
+    ->getFill()
+    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+    ->getStartColor()
+    ->setARGB('FFFFFF');
 
 $spreadsheet->getActiveSheet()
-            ->getStyle('A9')
+            ->getStyle('A1')
             ->getAlignment()
             ->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-$spreadsheet->getActiveSheet()->getStyle('A9')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+
+$spreadsheet->setActiveSheetIndex(0)
+    ->mergeCells('A10:AP10')
+    ->setCellValue('A10', 'ANTEPROYECTO DEL PLAN OPERATIVO ANUAL')
+    ->getStyle('A10:AP10')
+    ->getFill()
+    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+    ->getStartColor()
+    ->setARGB('4BEB7B');
+
+/*$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('A10:AP13')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('0000FF');*/
+
+$spreadsheet->getActiveSheet()
+            ->getStyle('A10')
+            ->getAlignment()
+            ->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+$spreadsheet->getActiveSheet()->getStyle('A10')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 $spreadsheet->getActiveSheet()->getStyle('AA11')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 $spreadsheet->getActiveSheet()
             ->mergeCells('A11:A13')
             ->setCellValue('A11', 'ACCION ESPECIFICA');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('A11')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
+
 
 $spreadsheet->getActiveSheet()
             ->getStyle('A11')
@@ -117,6 +156,9 @@ $spreadsheet->getActiveSheet()->getStyle('A11')->getAlignment()->setHorizontal(\
 $spreadsheet->getActiveSheet()
             ->mergeCells('B11:B13')
             ->setCellValue('B11', '%');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('B11')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
+
 
 
 $spreadsheet->getActiveSheet()
@@ -129,6 +171,9 @@ $spreadsheet->getActiveSheet()
             ->mergeCells('C11:C13')
             ->setCellValue('C11', 'BIEN O SERVICIO A OBTENER');
 
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('C11')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
+
 $spreadsheet->getActiveSheet()
             ->getStyle('C11')
             ->getAlignment()
@@ -139,10 +184,15 @@ $spreadsheet->setActiveSheetIndex(0)->mergeCells('D11:E11')
             ->setCellValue('D11', 'PLAZO DE EJECUCIÓN');
 $spreadsheet->getActiveSheet()->getStyle('D11')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('D11')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
+
 
 $spreadsheet->getActiveSheet()
             ->mergeCells('D12:D13')
             ->setCellValue('D12', 'INICIO');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('D12')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
 
 $spreadsheet->getActiveSheet()
             ->getStyle('D12')
@@ -153,6 +203,8 @@ $spreadsheet->getActiveSheet()->getStyle('D12')->getAlignment()->setHorizontal(\
 $spreadsheet->getActiveSheet()
             ->mergeCells('E12:E13')
             ->setCellValue('E12', 'FIN');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('E12')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
 
 $spreadsheet->getActiveSheet()
             ->getStyle('E12')
@@ -162,12 +214,18 @@ $spreadsheet->getActiveSheet()->getStyle('E12')->getAlignment()->setHorizontal(\
 
 $spreadsheet->setActiveSheetIndex(0)->mergeCells('F11:G11')
             ->setCellValue('F11', 'META TOTAL');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('F11')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
 
 $spreadsheet->getActiveSheet()->getStyle('F11')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 $spreadsheet->getActiveSheet()
             ->mergeCells('F12:F13')
             ->setCellValue('F12', 'UNIDAD DE MEDIDA');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('F11')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('F12')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
 
 $spreadsheet->getActiveSheet()
             ->getStyle('F12')
@@ -178,6 +236,9 @@ $spreadsheet->getActiveSheet()->getStyle('F12')->getAlignment()->setHorizontal(\
 $spreadsheet->getActiveSheet()
             ->mergeCells('G12:G13')
             ->setCellValue('G12', 'CANTIDAD ANUAL');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('G12')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
+
 
 $spreadsheet->getActiveSheet()
             ->getStyle('G12')
@@ -185,14 +246,36 @@ $spreadsheet->getActiveSheet()
             ->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 $spreadsheet->getActiveSheet()->getStyle('G12')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-$spreadsheet->setActiveSheetIndex(0)->mergeCells('H11:W11')
+/*$spreadsheet->setActiveSheetIndex(0)->mergeCells('H11:W11')
             ->setCellValue('H11', 'PROGRAMACIÓN FISICA DE LA META  (Acción Específica)');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('H11')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
 
-$spreadsheet->getActiveSheet()->getStyle('H11')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+$spreadsheet->getActiveSheet()->getStyle('H11')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);*/
+
+// fusionar celdas y establecer el contenido
+$spreadsheet->setActiveSheetIndex(0)->mergeCells('H11:W12')
+    ->setCellValue('H11', 'PROGRAMACIÓN FISICA DE LA META  (Acción Específica)');
+
+// obtener la hoja activa
+$worksheet = $spreadsheet->getActiveSheet();
+
+// establecer la alineación horizontal y vertical del texto en el centro de la celda
+$cell = $worksheet->getStyle('H11');
+$cell->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$cell->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+// extender la fusión de celdas a la fila 12
+$worksheet->getStyle('H12')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+// Aplicar estilo de relleno a la celda
+$worksheet->getStyle('H11:W12')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
 
 $spreadsheet->getActiveSheet()
             ->mergeCells('X11:X13')
             ->setCellValue('X11', 'ACTIVIDADES');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('X11')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
 
 $spreadsheet->getActiveSheet()
             ->getStyle('X11')
@@ -202,12 +285,17 @@ $spreadsheet->getActiveSheet()->getStyle('X11')->getAlignment()->setHorizontal(\
 
 $spreadsheet->setActiveSheetIndex(0)->mergeCells('Y11:Z11')
             ->setCellValue('Y11', 'META DE LA ACTIVIDAD');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('Y11')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
 
 $spreadsheet->getActiveSheet()->getStyle('Y11')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 $spreadsheet->getActiveSheet()
             ->mergeCells('Y12:Y13')
             ->setCellValue('Y12', 'UNIDAD DE MEDIDA');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('Y12')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
+
 
 $spreadsheet->getActiveSheet()
             ->getStyle('Y12')
@@ -218,6 +306,9 @@ $spreadsheet->getActiveSheet()->getStyle('Y12')->getAlignment()->setHorizontal(\
 $spreadsheet->getActiveSheet()
             ->mergeCells('Z12:Z13')
             ->setCellValue('Z12', 'CANTIDAD ANUAL');
+$worksheet = $spreadsheet->getActiveSheet();
+$worksheet->getStyle('Z12')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
+
 
 $spreadsheet->getActiveSheet()
             ->getStyle('Z12')
@@ -225,11 +316,78 @@ $spreadsheet->getActiveSheet()
             ->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 $spreadsheet->getActiveSheet()->getStyle('Z12')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-$spreadsheet->setActiveSheetIndex(0)->mergeCells('AA11:AP11')
-            ->setCellValue('AA11', 'PROGRAMACIÓN FISICA DE LA META  DE LA ACTIVIDAD');
+// fusionar celdas y establecer el contenido
+$spreadsheet->setActiveSheetIndex(0)->mergeCells('AA11:AP12')
+    ->setCellValue('AA11', 'PROGRAMACIÓN FISICA DE LA META  DE LA ACTIVIDAD');
 
-$spreadsheet->getActiveSheet()->getStyle('AA11')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+// obtener la hoja activa
+$worksheet = $spreadsheet->getActiveSheet();
 
+// establecer alineación horizontal y vertical del texto en el centro de la celda
+$cell = $worksheet->getStyle('AA11');
+$cell->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+$cell->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+// extender la fusión de celdas a la fila 12
+$worksheet->getStyle('AA12:AP12')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+// aplicar estilo de relleno a la celda
+$worksheet->getStyle('AA11:AP12')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('3CB9E8');
+
+// Define el estilo
+$styleArray = [
+    'font' => [
+        'color' => [
+            'argb' => \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE,
+        ],
+    ],
+    'borders' => [
+        'allBorders' => [
+            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            'color' => [
+                'argb' => \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK,
+            ],
+        ],
+    ],
+];
+
+// Aplica el estilo a las celdas de las filas 10, 11, 12 y 13 desde la columna A hasta la AP
+$worksheet->getStyle('A10:AP13')->applyFromArray($styleArray);
+
+
+// Define el estilo
+$styleArray = [
+    'alignment' => [
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+    ],
+    'fill' => [
+        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+        'startColor' => [
+            'argb' => 'FFC0C0C0',
+        ],
+    ],
+];
+
+// Aplica el estilo a las celdas de las filas H13 hasta W13
+$worksheet->getStyle('H13:W13')->applyFromArray($styleArray);
+
+// Define el estilo
+$styleArray = [
+    'alignment' => [
+        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+    ],
+    'fill' => [
+        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+        'startColor' => [
+            'argb' => 'FFC0C0C0',
+        ],
+    ],
+];
+
+// Aplica el estilo a las celdas de las filas H13 hasta W13
+$worksheet->getStyle('AA13:AP13')->applyFromArray($styleArray);
 
 // establecemos el ancho de las columnas
 $sheet = $spreadsheet->getActiveSheet();
@@ -277,20 +435,29 @@ $sheet->getColumnDimension('AO')->setWidth(4);
 $sheet->getColumnDimension('AP')->setWidth(4);
 
 
+$spreadsheet->setActiveSheetIndex(0)
+    ->mergeCells('A5:AP5') // expandimos el rango de la celda A5 hasta la columna AP
+    ->setCellValue('A5', '1. PROYECTO: ' . $consulta1['descripcion']);
+
+$spreadsheet->setActiveSheetIndex(0)
+    ->mergeCells('A6:AP6') // expandimos el rango de la celda A5 hasta la columna AP
+    ->setCellValue('A6', '2. OBJETIVO DEL PROYECTO:  ' . $consulta1['objetivo']);
+
+
+$spreadsheet->setActiveSheetIndex(0)
+    ->mergeCells('A7:AP7') // expandimos el rango de la celda A5 hasta la columna AP
+    ->setCellValue('A7', '3. UNIDAD EJECUTORA: ' . $consulta1['gerencia']);
+
 // Actualizamos las referencias de las otras celdas que continúan debajo
 $spreadsheet->getActiveSheet()
+            //->getStyle('A5:W13')->getAlignment()->setHorizontal('center')
             ->mergeCells('A11:A13')
             ->mergeCells('E11:E13')
             ->mergeCells('X11:X13')
-
-            //->setCellValue('A11', 'ACCION ESPECIFICA')
-           
-            //->setCellValue('F13', 'UNIDAD DE MEDIDA')
-            //->setCellValue('G13', 'CANTIDAD ANUAL')
-            //->setCellValue('H13', 'E')
-            ->setCellValue('A5',  '1. PROYECTO: '.$consulta1['descripcion'])
-            ->setCellValue('A6', '2. OBJETIVO DEL PROYECTO: '.$consulta1['objetivo'])
-            ->setCellValue('A7', '3. UNIDAD EJECUTORA: '.$consulta1['gerencia'])
+            //->setCellValue('A5',  '1. PROYECTO: '.$consulta1['descripcion'])
+            //->setCellValue('A6', '2. OBJETIVO DEL PROYECTO: '.$consulta1['objetivo'])
+            //->setCellValue('A7', '3. UNIDAD EJECUTORA: '.$consulta1['gerencia'])
+            ->setCellValue('H13', 'E')
             ->setCellValue('I13', 'F')
             ->setCellValue('J13', 'M')
             ->setCellValue('K13', 'I T')
@@ -307,9 +474,7 @@ $spreadsheet->getActiveSheet()
             ->setCellValue('V13', 'D')
             ->setCellValue('W13', 'IV T')
             ->setCellValue('E12', 'FIN')
-            //->setCellValue('Y13', 'UNIDAD DE MEDIDA')
-            //->setCellValue('Z13', 'CANTIDAD ANUAL')
-           // ->setCellValue('AA13', 'E')
+            ->setCellValue('AA13', 'E')
             ->setCellValue('AB13', 'F')
             ->setCellValue('AC13', 'M')
             ->setCellValue('AD13', 'I T')
@@ -379,8 +544,30 @@ $spreadsheet->getActiveSheet()
                 ->setCellValue('AN'.$i, $resultado['noviembre_act'])
                 ->setCellValue('AO'.$i, $resultado['diciembre_act'])
                 ->setCellValue('AP'.$i, $resultado['t4_act']);
-            $i++;
-        }
+           for ($col = 'A'; $col !== 'AQ'; $col++) {
+        $spreadsheet->getActiveSheet()
+            ->getStyle($col.$i)
+            ->getAlignment()
+            ->setHorizontal(Alignment::HORIZONTAL_CENTER)
+            ->setVertical(Alignment::VERTICAL_CENTER);
+    }
+
+    // Agregar bordes a las celdas
+    $borderStyle = [
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                'color' => [
+                    'rgb' => '000000'
+                ]
+            ]
+        ]
+    ];
+    $spreadsheet->getActiveSheet()->getStyle('A'.$i.':AP'.$i)->applyFromArray($borderStyle);
+
+    $i++;
+}
+
             
 
         // Rename worksheet
